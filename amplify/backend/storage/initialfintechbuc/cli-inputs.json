@@ -1,0 +1,14 @@
+{
+  "resourceName": "initialfintechbuc",
+  "policyUUID": "3289e085",
+  "bucketName": "initialfintech-buc",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

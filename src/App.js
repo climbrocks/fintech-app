@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
-import { API, Storage } from "aws-amplify";
+import { API, Storage, Auth } from "aws-amplify";
 import {
   Button,
   Flex,
@@ -12,18 +12,72 @@ import {
   View,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
-import { listTodos } from "./graphql/queries";
+import { listTodos, listTransactions } from "./graphql/queries";
 import {
   createTodo as createNoteMutation,
   deleteTodo as deleteNoteMutation,
+  createTransaction as createTransactionMutation,
+  deleteTransaction as deleteTransactionMutation,
 } from "./graphql/mutations";
 
 const App = ({ signOut }) => {
   const [notes, setNotes] = useState([]);
+  const [userDetails, setUser] = useState([]);
+  const [transactions, setTransaction] = useState([]);
 
   useEffect(() => {
     fetchNotes();
+    fetchUser();
+    fetchTransactions();
   }, []);
+
+  async function fetchUser() {
+    const user = await Auth.currentAuthenticatedUser();
+    const userInfo = user.attributes.sub
+    setUser(userInfo);
+  }
+
+  async function fetchTransactions() {
+    const getData = await API.graphql({ query: listTransactions });
+    const tranFromAPI = getData.data.listTransactions.items;
+    //await Promise.all(
+      //tranFromAPI.map(async (transaction) => {
+        //return transaction;
+     // })
+    //);
+    setTransaction(tranFromAPI)
+  }
+  //let attempt = fetchUser();
+  //console.log(userDetails);
+
+  async function createTransaction(event) {
+    event.preventDefault();
+    const form = new FormData(event.target);
+    //const image = form.get("image");
+    const data = {
+      value: form.get("value"),
+      account: form.get("account"),
+      //image: image.name,
+      cognitoID: userDetails,
+    };
+    //if (!!data.image) await Storage.put(data.name, image);
+    await API.graphql({
+      query: createTransactionMutation,
+      variables: { input: data },
+    });
+    fetchTransactions();
+    event.target.reset();
+  }
+
+   async function deleteTransaction({ id, value }) {
+    const newTransaction = transactions.filter((transaction) => transaction.id !== id);
+    setTransaction(newTransaction);
+    //await Storage.remove(name);
+    await API.graphql({
+      query: deleteTransactionMutation,
+      variables: { input: { id } },
+    });
+  }
 
   async function fetchNotes() {
     const apiData = await API.graphql({ query: listTodos });
@@ -48,6 +102,7 @@ const App = ({ signOut }) => {
       name: form.get("name"),
       description: form.get("description"),
       image: image.name,
+      cognitoID: userDetails,
     };
     if (!!data.image) await Storage.put(data.name, image);
     await API.graphql({
@@ -71,60 +126,72 @@ const App = ({ signOut }) => {
  
   return (
     <View className="App">
-      <Heading level={1}>FinTech App Merged</Heading>
-      <View as="form" margin="3rem 0" onSubmit={createNote}>
+      <Heading level={1}>NJORD</Heading>
+      <View as="form" margin="3rem 0" onSubmit={createTransaction}>
         <Flex direction="row" justifyContent="center">
-          <View
-            name="image"
-            as="input"
-            type="file"
-          style={{ alignSelf: "end" }}
-          />
           <TextField
-            name="name"
-            placeholder="Note Name"
-            label="Note Name"
+            name="value"
+            placeholder="Transaction Amount"
+            label="value"
             labelHidden
             variation="quiet"
             required
           />
           <TextField
-            name="description"
-            placeholder="Note Description"
-            label="Note Description"
+            name="account"
+            placeholder="Account"
+            label="account"
             labelHidden
             variation="quiet"
             required
           />
           <Button type="submit" variation="primary">
-            Create Note
+            Add Transaction
           </Button>
         </Flex>
       </View>
-      <Heading level={2}>Current Notes</Heading>
+      <Heading level={2}>All Transactions</Heading>
       <View margin="3rem 0">
-        {notes.map((note) => (
+        {transactions.map((transaction) => (
           <Flex
-            key={note.id || note.name}
+            key={transaction.id || transaction.value}
             direction="row"
             justifyContent="center"
             alignItems="center"
           >
             <Text as="strong" fontWeight={700}>
-              {note.name}
+              {transaction.value}
             </Text>
-            <Text as="span">{note.description}</Text>
-            {note.image && (
-              <Image
-                src={note.image}
-                alt={`visual aid for ${notes.name}`}
-                style={{ width: 400 }}
-              />
-            )}
-            <Button variation="link" onClick={() => deleteNote(note)}>
-              Delete note
+            <Text as="span">{transaction.createdAt}</Text>
+            <Text as="span">{transaction.account}</Text>
+
+            <Button variation="link" onClick={() => deleteTransaction(transaction)}>
+              Delete Transaction
             </Button>
           </Flex>
+        ))}
+      </View>
+      <Heading level={2}>Returning logged in User transactions</Heading>
+      <View>
+        {transactions
+          .filter(transaction => transaction.cognitoID === userDetails)
+          .map((transaction)=> (
+            <Flex
+              key={transaction.id || transaction.value}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text as="strong" fontWeight={700}>
+                {transaction.value}
+              </Text>
+              <Text as="span">{transaction.account}</Text>
+              <Text as="span">{transaction.createdAt}</Text>
+
+             <Button variation="link" onClick={() => deleteTransaction(transaction)}>
+                Delete Transaction
+              </Button>
+            </Flex>
         ))}
       </View>
       <Button onClick={signOut}>Sign Out</Button>

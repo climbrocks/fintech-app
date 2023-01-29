@@ -8,3 +8,10 @@ type Todo @model {
   description: String
   image: String
 }
+
+type Transaction @model {
+  id: ID!
+  cognitoID: String!
+  value: Float!
+  account: String
+}

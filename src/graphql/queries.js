@@ -32,3 +32,34 @@ export const listTodos = /* GraphQL */ `
     }
   }
 `;
+export const getTransaction = /* GraphQL */ `
+  query GetTransaction($id: ID!) {
+    getTransaction(id: $id) {
+      id
+      cognitoID
+      value
+      account
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listTransactions = /* GraphQL */ `
+  query ListTransactions(
+    $filter: ModelTransactionFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listTransactions(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        cognitoID
+        value
+        account
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

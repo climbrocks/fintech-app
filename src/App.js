@@ -1,66 +1,67 @@
+/*
+** Main App 
+** This originated as CMSC495 Final Project
+** Date: Jan-Mar 2023
+** Authors: Aaron G, Dalton C, Sean H, Chris T
+*/
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import "@aws-amplify/ui-react/styles.css";
-import { API, Storage, Auth } from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import {
   Button,
   Flex,
   Heading,
-  Image,
   Text,
   TextField,
   View,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
-import { listTodos, listTransactions } from "./graphql/queries";
+import { listTransactions } from "./graphql/queries";
 import {
-  createTodo as createNoteMutation,
-  deleteTodo as deleteNoteMutation,
   createTransaction as createTransactionMutation,
   deleteTransaction as deleteTransactionMutation,
 } from "./graphql/mutations";
 
+
 const App = ({ signOut }) => {
-  const [notes, setNotes] = useState([]);
+
+  // Constructors to capture logged in users and transactions
   const [userDetails, setUser] = useState([]);
   const [transactions, setTransaction] = useState([]);
 
+  // Effect hook to dynamically update user & transactions
   useEffect(() => {
-    fetchNotes();
     fetchUser();
     fetchTransactions();
   }, []);
 
+  // Function to fetch user UUID (sub) from AWS Cognito
   async function fetchUser() {
     const user = await Auth.currentAuthenticatedUser();
     const userInfo = user.attributes.sub
     setUser(userInfo);
   }
 
+  // Function to fetch transaction data from DynamoDB table via Appsync API call
   async function fetchTransactions() {
     const getData = await API.graphql({ query: listTransactions });
     const tranFromAPI = getData.data.listTransactions.items;
-    //await Promise.all(
-      //tranFromAPI.map(async (transaction) => {
-        //return transaction;
-     // })
-    //);
     setTransaction(tranFromAPI)
   }
-  //let attempt = fetchUser();
-  //console.log(userDetails);
-
+ 
+  /* Function to add a new transaction 
+     writes to DynamoDB table via Appsync 
+     pulls data from user input form 
+     calls refresh of transaction to display */
   async function createTransaction(event) {
     event.preventDefault();
     const form = new FormData(event.target);
-    //const image = form.get("image");
     const data = {
       value: form.get("value"),
       account: form.get("account"),
-      //image: image.name,
       cognitoID: userDetails,
     };
-    //if (!!data.image) await Storage.put(data.name, image);
     await API.graphql({
       query: createTransactionMutation,
       variables: { input: data },
@@ -69,7 +70,8 @@ const App = ({ signOut }) => {
     event.target.reset();
   }
 
-   async function deleteTransaction({ id, value }) {
+  // Function to delet a transaction will delete from DynamoDB table and refresh 
+  async function deleteTransaction({ id, value }) {
     const newTransaction = transactions.filter((transaction) => transaction.id !== id);
     setTransaction(newTransaction);
     //await Storage.remove(name);
@@ -79,51 +81,7 @@ const App = ({ signOut }) => {
     });
   }
 
-  async function fetchNotes() {
-    const apiData = await API.graphql({ query: listTodos });
-    const notesFromAPI = apiData.data.listTodos.items;
-    await Promise.all(
-      notesFromAPI.map(async (note) => {
-        if (note.image) {
-          const url = await Storage.get(note.name);
-          note.image = url;
-        }
-        return note;
-      })
-    );
-    setNotes(notesFromAPI);
-  }
-
-  async function createNote(event) {
-    event.preventDefault();
-    const form = new FormData(event.target);
-    const image = form.get("image");
-    const data = {
-      name: form.get("name"),
-      description: form.get("description"),
-      image: image.name,
-      cognitoID: userDetails,
-    };
-    if (!!data.image) await Storage.put(data.name, image);
-    await API.graphql({
-      query: createNoteMutation,
-      variables: { input: data },
-    });
-    fetchNotes();
-    event.target.reset();
-  }
-  
-
-  async function deleteNote({ id, name }) {
-    const newNotes = notes.filter((note) => note.id !== id);
-    setNotes(newNotes);
-    await Storage.remove(name);
-    await API.graphql({
-      query: deleteNoteMutation,
-      variables: { input: { id } },
-    });
-  }
- 
+  // Build display of form and data in web browser
   return (
     <View className="App">
       <Heading level={1}>NJORD</Heading>

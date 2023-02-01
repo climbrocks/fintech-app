@@ -36,6 +36,7 @@ const App = ({ signOut }) => {
     fetchTransactions();
   }, []);
 
+
   // Function to fetch user UUID (sub) from AWS Cognito
   async function fetchUser() {
     const user = await Auth.currentAuthenticatedUser();
@@ -48,8 +49,15 @@ const App = ({ signOut }) => {
     const getData = await API.graphql({ query: listTransactions });
     const tranFromAPI = getData.data.listTransactions.items;
     setTransaction(tranFromAPI)
+    //calcValue()
   }
  
+  //sum total of all transactions
+  var total = 0;
+   for (const thing of transactions) {
+     total += +thing.value; 
+   }
+
   /* Function to add a new transaction 
      writes to DynamoDB table via Appsync 
      pulls data from user input form 
@@ -85,6 +93,19 @@ const App = ({ signOut }) => {
   return (
     <View className="App">
       <Heading level={1}>NJORD</Heading>
+      <View margin="3rem 0">
+        <Flex direction="row" justifyContent="center">
+          <Text as="strong" 
+              fontSize={"2em"}
+              fontStyle="oblique"
+              color={"green"}>
+            {total}
+          </Text>
+          <Text fontSize={"2em"}>
+            Net Worth
+          </Text>
+        </Flex>
+      </View>
       <View as="form" margin="3rem 0" onSubmit={createTransaction}>
         <Flex direction="row" justifyContent="center">
           <TextField

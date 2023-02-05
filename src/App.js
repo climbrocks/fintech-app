@@ -36,29 +36,12 @@ const App = ({ signOut }) => {
     fetchTransactions();
   }, []);
 
-  const userInfo = [];
-  const userValues = [];
-  function getUserTransaction(item){
-    if (item.cognitoID == userDetails){
-      userInfo.push(item);
-      userValues.push(item.value);
-      //return item;
-    }
-  }
 
-  let userTotal = 0
-  const individualDetails = transactions.map(getUserTransaction);
-  const individualTotal = userValues.forEach(getUserTotal);
-  function getUserTotal(num){
-    userTotal += num;
-  }
- 
   // Function to fetch user UUID (sub) from AWS Cognito
   async function fetchUser() {
     const user = await Auth.currentAuthenticatedUser();
     const userInfo = user.attributes.sub
     setUser(userInfo);
-    return userInfo;
   }
 
   // Function to fetch transaction data from DynamoDB table via Appsync API call
@@ -66,7 +49,14 @@ const App = ({ signOut }) => {
     const getData = await API.graphql({ query: listTransactions });
     const tranFromAPI = getData.data.listTransactions.items;
     setTransaction(tranFromAPI)
+    //calcValue()
   }
+ 
+  //sum total of all transactions
+  var total = 0;
+   for (const thing of transactions) {
+     total += +thing.value; 
+   }
 
   /* Function to add a new transaction 
      writes to DynamoDB table via Appsync 
@@ -109,7 +99,7 @@ const App = ({ signOut }) => {
               fontSize={"2em"}
               fontStyle="oblique"
               color={"green"}>
-            {userTotal}
+            {total}
           </Text>
           <Text fontSize={"2em"}>
             Net Worth
@@ -140,6 +130,27 @@ const App = ({ signOut }) => {
         </Flex>
       </View>
       <Heading level={2}>All Transactions</Heading>
+      <View margin="3rem 0">
+        {transactions.map((transaction) => (
+          <Flex
+            key={transaction.id || transaction.value}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Text as="strong" fontWeight={700}>
+              {transaction.value}
+            </Text>
+            <Text as="span">{transaction.createdAt}</Text>
+            <Text as="span">{transaction.account}</Text>
+
+            <Button variation="link" onClick={() => deleteTransaction(transaction)}>
+              Delete Transaction
+            </Button>
+          </Flex>
+        ))}
+      </View>
+      <Heading level={2}>Returning logged in User transactions</Heading>
       <View>
         {transactions
           .filter(transaction => transaction.cognitoID === userDetails)

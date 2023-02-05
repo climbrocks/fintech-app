@@ -140,27 +140,6 @@ const App = ({ signOut }) => {
         </Flex>
       </View>
       <Heading level={2}>All Transactions</Heading>
-      <View margin="3rem 0">
-        {transactions.map((transaction) => (
-          <Flex
-            key={transaction.id || transaction.value}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Text as="strong" fontWeight={700}>
-              {transaction.value}
-            </Text>
-            <Text as="span">{transaction.createdAt}</Text>
-            <Text as="span">{transaction.account}</Text>
-
-            <Button variation="link" onClick={() => deleteTransaction(transaction)}>
-              Delete Transaction
-            </Button>
-          </Flex>
-        ))}
-      </View>
-      <Heading level={2}>Returning logged in User transactions</Heading>
       <View>
         {transactions
           .filter(transaction => transaction.cognitoID === userDetails)

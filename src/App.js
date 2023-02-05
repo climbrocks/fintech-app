@@ -27,7 +27,7 @@ import {
 
 
 const App = ({ signOut }) => {
-
+//new
   // Constructors to capture logged in users and transactions
   const [userDetails, setUser] = useState([]);
   const [transactions, setTransaction] = useState([]);

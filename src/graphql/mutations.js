@@ -91,3 +91,48 @@ export const deleteTransaction = /* GraphQL */ `
     }
   }
 `;
+export const createAccounts = /* GraphQL */ `
+  mutation CreateAccounts(
+    $input: CreateAccountsInput!
+    $condition: ModelAccountsConditionInput
+  ) {
+    createAccounts(input: $input, condition: $condition) {
+      id
+      cognitoID
+      institution
+      accountType
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateAccounts = /* GraphQL */ `
+  mutation UpdateAccounts(
+    $input: UpdateAccountsInput!
+    $condition: ModelAccountsConditionInput
+  ) {
+    updateAccounts(input: $input, condition: $condition) {
+      id
+      cognitoID
+      institution
+      accountType
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteAccounts = /* GraphQL */ `
+  mutation DeleteAccounts(
+    $input: DeleteAccountsInput!
+    $condition: ModelAccountsConditionInput
+  ) {
+    deleteAccounts(input: $input, condition: $condition) {
+      id
+      cognitoID
+      institution
+      accountType
+      createdAt
+      updatedAt
+    }
+  }
+`;

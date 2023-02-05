@@ -79,3 +79,39 @@ export const onDeleteTransaction = /* GraphQL */ `
     }
   }
 `;
+export const onCreateAccounts = /* GraphQL */ `
+  subscription OnCreateAccounts($filter: ModelSubscriptionAccountsFilterInput) {
+    onCreateAccounts(filter: $filter) {
+      id
+      cognitoID
+      institution
+      accountType
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateAccounts = /* GraphQL */ `
+  subscription OnUpdateAccounts($filter: ModelSubscriptionAccountsFilterInput) {
+    onUpdateAccounts(filter: $filter) {
+      id
+      cognitoID
+      institution
+      accountType
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteAccounts = /* GraphQL */ `
+  subscription OnDeleteAccounts($filter: ModelSubscriptionAccountsFilterInput) {
+    onDeleteAccounts(filter: $filter) {
+      id
+      cognitoID
+      institution
+      accountType
+      createdAt
+      updatedAt
+    }
+  }
+`;

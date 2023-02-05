@@ -15,3 +15,10 @@ type Transaction @model {
   value: Float!
   account: String
 }
+
+type Accounts @model {
+  id: ID!
+  cognitoID: String!
+  institution: String!
+  accountType: [String!]
+}

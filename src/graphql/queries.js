@@ -63,3 +63,34 @@ export const listTransactions = /* GraphQL */ `
     }
   }
 `;
+export const getAccounts = /* GraphQL */ `
+  query GetAccounts($id: ID!) {
+    getAccounts(id: $id) {
+      id
+      cognitoID
+      institution
+      accountType
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listAccounts = /* GraphQL */ `
+  query ListAccounts(
+    $filter: ModelAccountsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listAccounts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        cognitoID
+        institution
+        accountType
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

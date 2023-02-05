@@ -17,10 +17,12 @@ import {
   View,
   withAuthenticator,
 } from "@aws-amplify/ui-react";
-import { listTransactions } from "./graphql/queries";
+import { listAccounts, listTransactions } from "./graphql/queries";
 import {
   createTransaction as createTransactionMutation,
   deleteTransaction as deleteTransactionMutation,
+  createAccounts as createAccountMutation,
+  updateAccounts as updateAccountMutation,
 } from "./graphql/mutations";
 
 
@@ -29,26 +31,35 @@ const App = ({ signOut }) => {
   // Constructors to capture logged in users and transactions
   const [userDetails, setUser] = useState([]);
   const [transactions, setTransaction] = useState([]);
+  const [accounts, setAccounts] = useState([]);
 
   // Effect hook to dynamically update user & transactions
   useEffect(() => {
     fetchUser();
     fetchTransactions();
+    fetchAccounts();
   }, []);
 
+  // arrays to capture inidivual user data and 
+  // total value from DynamoDB
   const userInfo = [];
   const userValues = [];
+
+  // function to get user specific data
   function getUserTransaction(item){
-    if (item.cognitoID == userDetails){
+    if (item.cognitoID === userDetails){
       userInfo.push(item);
       userValues.push(item.value);
       //return item;
     }
   }
 
+  // variables to pull the user data
   let userTotal = 0
   const individualDetails = transactions.map(getUserTransaction);
   const individualTotal = userValues.forEach(getUserTotal);
+  
+  // function to total transactions for user
   function getUserTotal(num){
     userTotal += num;
   }
@@ -61,13 +72,35 @@ const App = ({ signOut }) => {
     return userInfo;
   }
 
+  async function fetchAccounts() {
+    const getAccounts = await API.graphql({ query: listAccounts});
+    const accFromAPI = getAccounts.data.listAccounts.items;
+    setAccounts(accFromAPI);
+  }
+
   // Function to fetch transaction data from DynamoDB table via Appsync API call
   async function fetchTransactions() {
     const getData = await API.graphql({ query: listTransactions });
     const tranFromAPI = getData.data.listTransactions.items;
-    setTransaction(tranFromAPI)
+    setTransaction(tranFromAPI);
   }
 
+  async function createAccount(event){
+    event.preventDefault();
+    const form = new FormData(event.target);
+    const data = {
+      institution: form.get("institution"),
+      accountType: form.get("accountType"),
+      cognitoID: userDetails,
+    };
+    await API.graphql({
+      query: createAccountMutation,
+      variables: { input: data },
+    });
+    fetchAccounts();
+    event.target.reset();
+  }   
+  
   /* Function to add a new transaction 
      writes to DynamoDB table via Appsync 
      pulls data from user input form 
@@ -99,6 +132,17 @@ const App = ({ signOut }) => {
     });
   }
 
+  async function updateAccount({ id, value}){
+    const newAccount = accounts.filter((account) => account.id !== id);
+    setAccounts(newAccount);
+    await API.graphql({
+      query: updateAccountMutation,
+      variables: { input: {id, accountType: value}},
+    })
+  }
+  
+  //updateAccount("27bdeaac-7152-40cf-83d4-92a3ed282fab", "savings");
+  //console.log(accounts);
   // Build display of form and data in web browser
   return (
     <View className="App">
@@ -114,6 +158,29 @@ const App = ({ signOut }) => {
           <Text fontSize={"2em"}>
             Net Worth
           </Text>
+        </Flex>
+      </View>
+      <View as="form" margin="3rem 0" onSubmit={createAccount}>
+        <Flex direction="row" justifyContent="center">
+          <TextField
+            name="institution"
+            placeholder="Bank Name"
+            label="institution"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <TextField
+            name="accountType"
+            placeholder="Type (checking/savings/loan/etc)"
+            label="accountType"
+            labelHidden
+            variation="quiet"
+            required
+          />
+          <Button type="submit" variation="primary">
+            Add Account
+          </Button>
         </Flex>
       </View>
       <View as="form" margin="3rem 0" onSubmit={createTransaction}>

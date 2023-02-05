@@ -36,12 +36,29 @@ const App = ({ signOut }) => {
     fetchTransactions();
   }, []);
 
+  const userInfo = [];
+  const userValues = [];
+  function getUserTransaction(item){
+    if (item.cognitoID == userDetails){
+      userInfo.push(item);
+      userValues.push(item.value);
+      //return item;
+    }
+  }
 
+  let userTotal = 0
+  const individualDetails = transactions.map(getUserTransaction);
+  const individualTotal = userValues.forEach(getUserTotal);
+  function getUserTotal(num){
+    userTotal += num;
+  }
+ 
   // Function to fetch user UUID (sub) from AWS Cognito
   async function fetchUser() {
     const user = await Auth.currentAuthenticatedUser();
     const userInfo = user.attributes.sub
     setUser(userInfo);
+    return userInfo;
   }
 
   // Function to fetch transaction data from DynamoDB table via Appsync API call
@@ -49,14 +66,7 @@ const App = ({ signOut }) => {
     const getData = await API.graphql({ query: listTransactions });
     const tranFromAPI = getData.data.listTransactions.items;
     setTransaction(tranFromAPI)
-    //calcValue()
   }
- 
-  //sum total of all transactions
-  var total = 0;
-   for (const thing of transactions) {
-     total += +thing.value; 
-   }
 
   /* Function to add a new transaction 
      writes to DynamoDB table via Appsync 
@@ -99,7 +109,7 @@ const App = ({ signOut }) => {
               fontSize={"2em"}
               fontStyle="oblique"
               color={"green"}>
-            {total}
+            {userTotal}
           </Text>
           <Text fontSize={"2em"}>
             Net Worth

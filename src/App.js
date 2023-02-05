@@ -44,21 +44,39 @@ const App = ({ signOut }) => {
   // total value from DynamoDB
   const userInfo = [];
   const userValues = [];
+  const userAccount = [];
+  const userAccountTypes = [];
+  let userAccountID = "";
 
   // function to get user specific data
   function getUserTransaction(item){
     if (item.cognitoID === userDetails){
       userInfo.push(item);
       userValues.push(item.value);
-      //return item;
     }
+  }
+
+  function getUserAccounts(item){
+    if (item.cognitoID === userDetails){
+      userAccount.push(item);
+      userAccountTypes.push(item.accountType);
+      //userAccountID = item.id;
+    }
+  }
+
+  function getAccountID(account) {
+    if (account.institution === "Bank of America"){
+      userAccountID = account.id;
+    }    
   }
 
   // variables to pull the user data
   let userTotal = 0
   const individualDetails = transactions.map(getUserTransaction);
   const individualTotal = userValues.forEach(getUserTotal);
-  
+  const individualUserAccount = accounts.map(getUserAccounts);
+  const individualUserAccountID = accounts.map(getAccountID);
+
   // function to total transactions for user
   function getUserTotal(num){
     userTotal += num;
@@ -100,7 +118,20 @@ const App = ({ signOut }) => {
     fetchAccounts();
     event.target.reset();
   }   
-  
+ 
+  async function updateAccountType(){
+    let newTypes = userAccountTypes;
+    userAccountTypes.push("checking")
+    const data = {
+      accountType: newTypes,
+      id: userAccountID,
+    };
+    await API.graphql({
+      query: updateAccountMutation,
+      variables: {input: data},
+    });
+  }
+  //updateAccountType();
   /* Function to add a new transaction 
      writes to DynamoDB table via Appsync 
      pulls data from user input form 
@@ -132,17 +163,8 @@ const App = ({ signOut }) => {
     });
   }
 
-  async function updateAccount({ id, value}){
-    const newAccount = accounts.filter((account) => account.id !== id);
-    setAccounts(newAccount);
-    await API.graphql({
-      query: updateAccountMutation,
-      variables: { input: {id, accountType: value}},
-    })
-  }
-  
-  //updateAccount("27bdeaac-7152-40cf-83d4-92a3ed282fab", "savings");
-  //console.log(accounts);
+  console.log(userAccountID);
+
   // Build display of form and data in web browser
   return (
     <View className="App">
@@ -230,6 +252,9 @@ const App = ({ signOut }) => {
         ))}
       </View>
       <Button onClick={signOut}>Sign Out</Button>
+    
+    
+      <Button onClick={updateAccountType}>update account</Button>
     </View>
   );
 };

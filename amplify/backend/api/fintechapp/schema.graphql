@@ -20,5 +20,5 @@ type Accounts @model {
   id: ID!
   cognitoID: String!
   institution: String!
-  accountType: [String!]
+  accountType: [String!]! 
 }

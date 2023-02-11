@@ -1,44 +1,15 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
-      id
-      name
-      description
-      image
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        name
-        description
-        image
-        createdAt
-        updatedAt
-      }
-      nextToken
-    }
-  }
-`;
 export const getTransaction = /* GraphQL */ `
   query GetTransaction($id: ID!) {
     getTransaction(id: $id) {
       id
       cognitoID
       value
-      account
+      description
+      bankName
+      accountType
       createdAt
       updatedAt
     }
@@ -55,7 +26,9 @@ export const listTransactions = /* GraphQL */ `
         id
         cognitoID
         value
-        account
+        description
+        bankName
+        accountType
         createdAt
         updatedAt
       }
@@ -68,7 +41,7 @@ export const getAccounts = /* GraphQL */ `
     getAccounts(id: $id) {
       id
       cognitoID
-      institution
+      bankName
       accountType
       createdAt
       updatedAt
@@ -85,7 +58,7 @@ export const listAccounts = /* GraphQL */ `
       items {
         id
         cognitoID
-        institution
+        bankName
         accountType
         createdAt
         updatedAt

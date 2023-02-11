@@ -1,42 +1,6 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreateTodo = /* GraphQL */ `
-  subscription OnCreateTodo($filter: ModelSubscriptionTodoFilterInput) {
-    onCreateTodo(filter: $filter) {
-      id
-      name
-      description
-      image
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onUpdateTodo = /* GraphQL */ `
-  subscription OnUpdateTodo($filter: ModelSubscriptionTodoFilterInput) {
-    onUpdateTodo(filter: $filter) {
-      id
-      name
-      description
-      image
-      createdAt
-      updatedAt
-    }
-  }
-`;
-export const onDeleteTodo = /* GraphQL */ `
-  subscription OnDeleteTodo($filter: ModelSubscriptionTodoFilterInput) {
-    onDeleteTodo(filter: $filter) {
-      id
-      name
-      description
-      image
-      createdAt
-      updatedAt
-    }
-  }
-`;
 export const onCreateTransaction = /* GraphQL */ `
   subscription OnCreateTransaction(
     $filter: ModelSubscriptionTransactionFilterInput
@@ -45,7 +9,9 @@ export const onCreateTransaction = /* GraphQL */ `
       id
       cognitoID
       value
-      account
+      description
+      bankName
+      accountType
       createdAt
       updatedAt
     }
@@ -59,7 +25,9 @@ export const onUpdateTransaction = /* GraphQL */ `
       id
       cognitoID
       value
-      account
+      description
+      bankName
+      accountType
       createdAt
       updatedAt
     }
@@ -73,7 +41,9 @@ export const onDeleteTransaction = /* GraphQL */ `
       id
       cognitoID
       value
-      account
+      description
+      bankName
+      accountType
       createdAt
       updatedAt
     }
@@ -84,7 +54,7 @@ export const onCreateAccounts = /* GraphQL */ `
     onCreateAccounts(filter: $filter) {
       id
       cognitoID
-      institution
+      bankName
       accountType
       createdAt
       updatedAt
@@ -96,7 +66,7 @@ export const onUpdateAccounts = /* GraphQL */ `
     onUpdateAccounts(filter: $filter) {
       id
       cognitoID
-      institution
+      bankName
       accountType
       createdAt
       updatedAt
@@ -108,7 +78,7 @@ export const onDeleteAccounts = /* GraphQL */ `
     onDeleteAccounts(filter: $filter) {
       id
       cognitoID
-      institution
+      bankName
       accountType
       createdAt
       updatedAt

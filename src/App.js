@@ -44,26 +44,49 @@ const App = ({ signOut }) => {
   // total value from DynamoDB
   const userInfo = [];
   const userValues = [];
+  const userAccount = [];
+  const userAccountTypes = [];
+  let userAccountID = "";
+  let userAccontDict = {};
 
   // function to get user specific data
   function getUserTransaction(item){
     if (item.cognitoID === userDetails){
       userInfo.push(item);
       userValues.push(item.value);
-      //return item;
+    }
+  }
+  
+  function getUserAccounts(item){
+    if (item.cognitoID === userDetails){
+      userAccount.push(item);
+      userAccountTypes.push(item.accountType);
+      userAccontDict[item.institution] = item.accountType;
+      //userAccountID = item.id;
     }
   }
 
+  function getAccountID(account) {
+    if (account.institution === "Chase"){
+      userAccountID = account.id;
+    }    
+  }
+
   // variables to pull the user data
-  let userTotal = 0
+  let userTotal = 0;
+  let userDebits = 0;
   const individualDetails = transactions.map(getUserTransaction);
   const individualTotal = userValues.forEach(getUserTotal);
-  
+  const individualUserAccount = accounts.map(getUserAccounts);
+  //const individualUserAccountID = accounts.map(getAccountID);
+
   // function to total transactions for user
   function getUserTotal(num){
     userTotal += num;
+    if (num < 0){
+      userDebits += num;
+    }
   }
- 
   // Function to fetch user UUID (sub) from AWS Cognito
   async function fetchUser() {
     const user = await Auth.currentAuthenticatedUser();
@@ -89,8 +112,9 @@ const App = ({ signOut }) => {
     event.preventDefault();
     const form = new FormData(event.target);
     const data = {
-      institution: form.get("institution"),
-      accountType: form.get("accountType"),
+      bankName: form.get("bankName"),
+      //accountType: form.get("accountType"),
+      accountType: ["checking","savings","credit card"],
       cognitoID: userDetails,
     };
     await API.graphql({
@@ -100,7 +124,9 @@ const App = ({ signOut }) => {
     fetchAccounts();
     event.target.reset();
   }   
-  
+ 
+
+  //updateAccountType();
   /* Function to add a new transaction 
      writes to DynamoDB table via Appsync 
      pulls data from user input form 
@@ -110,7 +136,9 @@ const App = ({ signOut }) => {
     const form = new FormData(event.target);
     const data = {
       value: form.get("value"),
-      account: form.get("account"),
+      description: form.get("description"),
+      bankName: "Chase",
+      accountType: "checking",
       cognitoID: userDetails,
     };
     await API.graphql({
@@ -131,18 +159,7 @@ const App = ({ signOut }) => {
       variables: { input: { id } },
     });
   }
-
-  async function updateAccount({ id, value}){
-    const newAccount = accounts.filter((account) => account.id !== id);
-    setAccounts(newAccount);
-    await API.graphql({
-      query: updateAccountMutation,
-      variables: { input: {id, accountType: value}},
-    })
-  }
   
-  //updateAccount("27bdeaac-7152-40cf-83d4-92a3ed282fab", "savings");
-  //console.log(accounts);
   // Build display of form and data in web browser
   return (
     <View className="App">
@@ -158,6 +175,15 @@ const App = ({ signOut }) => {
           <Text fontSize={"2em"}>
             Net Worth
           </Text>
+          <Text as="strong" 
+              fontSize={"2em"}
+              fontStyle="oblique"
+              color={"red"}>
+            {userDebits}
+          </Text>
+          <Text fontSize={"2em"}>
+            Spending
+          </Text>
         </Flex>
       </View>
       <View as="form" margin="3rem 0" onSubmit={createAccount}>
@@ -166,14 +192,6 @@ const App = ({ signOut }) => {
             name="institution"
             placeholder="Bank Name"
             label="institution"
-            labelHidden
-            variation="quiet"
-            required
-          />
-          <TextField
-            name="accountType"
-            placeholder="Type (checking/savings/loan/etc)"
-            label="accountType"
             labelHidden
             variation="quiet"
             required
@@ -194,9 +212,9 @@ const App = ({ signOut }) => {
             required
           />
           <TextField
-            name="account"
-            placeholder="Account"
-            label="account"
+            name="description"
+            placeholder="Description"
+            label="description"
             labelHidden
             variation="quiet"
             required
@@ -205,6 +223,32 @@ const App = ({ signOut }) => {
             Add Transaction
           </Button>
         </Flex>
+      </View>
+      <Heading level={2}>Accounts</Heading>
+      <View>
+        {userAccount
+          //.filter(transaction => transaction.cognitoID === userDetails)
+          .map((account)=> (
+            <Flex
+              key={account.id}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Text as="strong" fontWeight={700}>
+                {account.institution}
+              </Text>
+              <Text as="strong" fontWeight={700}>
+                {account.accountType
+                  .map((type)=>(
+                    <Text key={type.toString()}>
+                      {type}
+                    </Text>
+                  )) 
+                  }
+              </Text>
+            </Flex>
+        ))}
       </View>
       <Heading level={2}>All Transactions</Heading>
       <View>
@@ -229,7 +273,9 @@ const App = ({ signOut }) => {
             </Flex>
         ))}
       </View>
+
       <Button onClick={signOut}>Sign Out</Button>
+    
     </View>
   );
 };

@@ -164,7 +164,10 @@ const App = ({ signOut }) => {
   return (
     <View className="App">
       <Heading level={1}>NJORD</Heading>
-      <View margin="3rem 0">
+      <View>
+        <Button onClick={signOut}>Sign Out</Button>
+     </View>
+     <View margin="3rem 0">
         <Flex direction="row" justifyContent="center">
           <Text as="strong" 
               fontSize={"2em"}
@@ -273,9 +276,6 @@ const App = ({ signOut }) => {
             </Flex>
         ))}
       </View>
-
-      <Button onClick={signOut}>Sign Out</Button>
-    
     </View>
   );
 };

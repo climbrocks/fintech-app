@@ -163,7 +163,8 @@ const App = ({ signOut }) => {
   // Build display of form and data in web browser
   return (
     <View className="App">
-      <Heading level={1}>NJORD boop boop</Heading>
+      <Heading level={1}>NJORD</Heading>
+      <Button onClick={signOut}>Sign Out</Button>
       <View margin="3rem 0">
         <Flex direction="row" justifyContent="center">
           <Text as="strong" 
@@ -273,9 +274,6 @@ const App = ({ signOut }) => {
             </Flex>
         ))}
       </View>
-
-      <Button onClick={signOut}>Sign Out</Button>
-    
     </View>
   );
 };

@@ -1,0 +1,35 @@
+@use '../../global-css/variables';
+
+ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+        padding: 3px 0;
+        display: block;
+        width: 100%;
+
+        a {
+            color: variables.$font-color;
+            display: inline-block;
+            width: 100%;
+            padding: 10px 15px;
+            font-weight: 600;
+            border-radius: variables.$border-radius;
+            transition: .4s all ease-in-out;
+            display: grid;
+            grid-template-columns: auto 2fr;
+            align-items: center;
+
+            .icon {
+                width: 16px;
+                height: 16px;
+                margin-right: 15px;
+            }
+        }
+        a:hover {
+            background-color: white;
+            box-shadow: variables.$box-shadow;
+        }
+    }
+}

@@ -1,0 +1,20 @@
+@use '../../../global-css/mixins';
+@use '../../../global-css/variables';
+
+.accounts-line {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    justify-content: space-between;
+    padding: 15px 30px;
+    align-items: center;
+    
+    .accounts-title {
+        
+    }
+    .accounts-type {
+        font-weight: 500;
+    }
+    .accounts-amount {
+        text-align: right;
+    }
+}

@@ -1,0 +1,33 @@
+@use '../../../global-css/variables';
+@use '../../../global-css/mixins';
+
+.hero-section {
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    justify-content: baseline;
+    padding-bottom: 30px;
+
+    .page-title {
+        
+    }
+
+    .hero-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 15px;
+        justify-content: end;
+        
+
+        .add-account,
+        .add-transaction {
+            @include mixins.colored-button;
+        }
+
+        .add-account {
+            background-color: variables.$accent-green;
+        }
+        .add-transaction {
+            background-color: variables.$accent-green;
+        }
+    }
+}

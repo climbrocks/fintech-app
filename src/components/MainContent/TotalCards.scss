@@ -1,0 +1,10 @@
+@use '../../global-css/variables';
+@use '../../global-css/mixins';
+
+.total-cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    padding: 30px 0;
+}

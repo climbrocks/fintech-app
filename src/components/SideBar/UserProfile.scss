@@ -1,0 +1,31 @@
+@use '../../global-css/variables';
+
+.user-profile {
+    background-color: white;
+    padding: 15px;
+    border-radius: variables.$border-radius;
+    display: grid;
+    grid-template-columns: auto 2fr;
+    grid-column-gap: 15px;
+    justify-content: start;
+    align-items: center;
+    box-shadow: variables.$box-shadow;
+
+    .user-initials {
+        padding: 10px;
+        background-color: variables.$background-alt-color;
+        border-radius: variables.$border-radius;
+
+    }
+
+    .user-information {
+
+        .user-name {
+            font-weight: 600;
+            line-height: 1.5;
+        }
+        .user-member-since {
+            font-size: .8em;
+        }
+    }
+}

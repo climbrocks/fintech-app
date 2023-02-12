@@ -1,0 +1,9 @@
+@use '../../../global-css/mixins';
+@use '../../../global-css/variables';
+
+.data-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px;
+    padding: 30px 0;
+}

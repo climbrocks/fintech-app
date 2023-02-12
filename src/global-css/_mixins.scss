@@ -1,0 +1,15 @@
+@use 'variables';
+
+/* PROJECT MIXINS
+*******************/
+
+@mixin colored-button {
+    padding: 5px 15px;
+    border-radius: variables.$border-radius;
+    color: variables.$background-color;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: .7em;
+    border: none;
+    white-space: nowrap;
+}

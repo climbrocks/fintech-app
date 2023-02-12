@@ -1,0 +1,23 @@
+.App {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    justify-content: start;
+}
+
+.divider {
+    display:none;
+    width: 1px;
+    height: calc(100% - 60px);
+    align-self: center;
+    background-color: rgba(0,0,0,0.1);
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+}
+
+.nav-pane {
+
+}
+
+.content-pane {
+    width: 100%;
+
+}

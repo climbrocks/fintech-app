@@ -1,0 +1,39 @@
+@use '../../../global-css/mixins';
+@use '../../../global-css/variables';
+
+.totals-card {
+    background-color: variables.$background-color;
+    padding: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 8px;
+    justify-content: space-between;
+    align-items: end;
+    box-shadow: variables.$box-shadow;
+
+
+    .title {
+        p {
+            font-size: .8em;
+            font-weight: 700;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.6)
+        }
+
+        h2 {
+            padding: 0;
+            margin: 0;
+            line-height: 1;
+        }
+    }
+
+    .amount {
+        text-align: right;
+        padding: 0;
+        margin: 0;
+        line-height: 1;
+    }
+}

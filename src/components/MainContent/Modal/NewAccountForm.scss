@@ -1,0 +1,78 @@
+@use '../../../global-css/variables';
+@use '../../../global-css/mixins';
+
+.modal-background {
+    background-color: rgba(0, 0, 0, 0.4);
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    z-index: 9;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+
+    .modal-container {
+        border-radius: variables.$border-radius;
+        padding: 30px;
+        background-color: variables.$background-alt-color;
+        box-shadow: variables.$box-shadow;
+        max-width: 420px;
+        display: inline-grid;
+        grid-template-rows: repeat(1fr, auto);
+        justify-content:space-evenly;
+
+        .title-container {
+            display: grid;
+            grid-template-columns: 10fr 1fr;
+            justify-content: space-between;
+            align-items: end;
+            padding-bottom: 30px;
+            h2 {
+                margin: 0;
+                padding: 0;
+                line-height: 1;
+            }
+            button {
+                width: 32px;
+                height: 32px;
+                background: transparent;
+                border: none;
+                padding: 0;
+                margin: 0;
+                transition: .2s all ease-in-out;
+                cursor: pointer;
+            }
+            button:hover {
+                color: variables.$accent-red;
+            }
+
+            
+        }
+
+    }
+}
+
+.new-account-form {
+    label {
+        display: block;
+    }
+    input {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+    select {
+        width: 100%;
+    }
+    button {
+        @include mixins.colored-button;
+        background-color: variables.$accent-green;
+        margin-top: 30px;
+        width: 100%;
+        padding: 15px 0;
+    }
+    button:hover {
+        background: variables.$accent-green-hover;
+    }
+}
+

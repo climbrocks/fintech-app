@@ -6,9 +6,9 @@
 *****************/
 * {
     margin: 0;
-    -moz-box-sizing: border-box; 
-    -webkit-box-sizing: border-box; 
-     box-sizing: border-box; 
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 html,
@@ -51,4 +51,24 @@ body {
     background-color: variables.$background-alt-color;
     font-family: 'Montserrat', sans-serif;
     color: variables.$font-color;
+}
+
+/* MEDIA QUERIES
+******************/
+@media (min-width: 1280) {
+    body {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1025) and (max-width: 1279) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 1024) {
+    body {
+        font-size: 12px;
+    }
 }

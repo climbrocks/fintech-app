@@ -9,12 +9,16 @@
     padding: 30px;
     box-shadow: variables.$box-shadow;
     background-color: variables.$background-color;
+    position: fixed;
 }
 
 .sign-out {
     @include mixins.colored-button;
     margin-top: 15px;
     background-color: variables.$accent-red;
+}
+.sign-out:hover {
+    background-color: variables.$accent-red-hover;
 }
 
 .app-name {

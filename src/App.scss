@@ -1,7 +1,37 @@
+@use './global-css/variables';
+@use './global-css/mixins';
+
 .App {
     display: grid;
     grid-template-columns: 300px 1fr;
     justify-content: start;
+}
+
+.buttons-overlay {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: transparent;
+}
+
+.add-buttons {
+    padding: 30px 30px 0 0;
+    float: right;
+
+
+        .add-account,
+        .add-transaction {
+            @include mixins.colored-button;
+            background-color: variables.$accent-green;
+            padding: 15px 30px;
+            margin-left: 30px;
+        }
+        .add-account:hover,
+        .add-transaction:hover {
+            background-color: variables.$accent-green-hover;
+        }
 }
 
 .divider {
@@ -20,4 +50,78 @@
 .content-pane {
     width: 100%;
 
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+
+/* RESET
+*****************/
+* {
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    line-height: 1.3;
+    -webkkt-font-smoothing: antialiased;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* DEFAULTS
+*****************/
+body {
+    height: 100vh;
+    width: 100vw;
+    background-color: variables.$background-alt-color;
+    font-family: 'Montserrat', sans-serif;
+    color: variables.$font-color;
+}
+
+/* MEDIA QUERIES
+******************/
+@media screen and (min-width: 1280) {
+    body {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1025) and (max-width: 1279) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1024) {
+    body {
+        font-size: 12px;
+    }
 }

@@ -1,6 +1,7 @@
 import './TotalsCards.scss'
 
 const TotalsCards = (props) => {
+    
 
     return (
         <div className='totals-card'>

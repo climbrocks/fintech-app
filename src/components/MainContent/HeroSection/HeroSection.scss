@@ -21,13 +21,11 @@
         .add-account,
         .add-transaction {
             @include mixins.colored-button;
-        }
-
-        .add-account {
             background-color: variables.$accent-green;
         }
-        .add-transaction {
-            background-color: variables.$accent-green;
+        .add-account:hover,
+        .add-transaction:hover {
+            background-color: variables.$accent-green-hover;
         }
     }
 }

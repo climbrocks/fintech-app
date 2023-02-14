@@ -7,17 +7,20 @@
     justify-content: space-between;
     padding: 15px 30px;
     align-items: center;
-    
-    .transactions-title {
-        
-    }
-    .transactions-type {
-        font-weight: 500;
-    }
-    .transactions-amount {
-        text-align: right;
-    }
 }
+
+.transactions-title {
+    
+}
+
+.transactions-type {
+     font-weight: 500;
+}
+
+.transactions-amount {
+       text-align: right;
+    }
+
 .transactions-line:nth-of-type(odd) {
     background-color: variables.$background-alt-color;
 }

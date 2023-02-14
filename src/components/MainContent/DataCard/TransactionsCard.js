@@ -22,8 +22,6 @@ const DataCard = () => {
             <div className='transactions'>
                 <View>
                     <TransactionsLine className='transaction' />
-                    <TransactionsLine className='transaction' />
-                    <TransactionsLine className='transaction' />
                 </View>
             </div>
         </div>

@@ -62,7 +62,7 @@ const TotalsCards = (props) => {
                 <p>Total</p>
                 <h2>{ props.title }</h2>
             </div>
-            <h2 className = 'amount'>{userTotal}</h2>
+            <h2 className = 'amount'>${userTotal.toLocaleString(undefined, {maximumFractionDigits:2})}</h2>
         </div>
     );
 };

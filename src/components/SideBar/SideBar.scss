@@ -16,6 +16,7 @@
     @include mixins.colored-button;
     margin-top: 15px;
     background-color: variables.$accent-red;
+    box-shadow: none;
 }
 .sign-out:hover {
     background-color: variables.$accent-red-hover;

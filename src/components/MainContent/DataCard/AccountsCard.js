@@ -1,7 +1,7 @@
 import './AccountsCard.scss';
 import AccountsLine from './AccountsLine';
 
-const DataCard = () => {
+const AccountsCard = () => {
     const accountTypes = [
         'Checking & Savings',
         'Credit Cards',
@@ -34,4 +34,4 @@ const DataCard = () => {
         </div>
     );
 }
-export default DataCard;
+export default AccountsCard;

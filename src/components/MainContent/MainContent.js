@@ -8,6 +8,7 @@ const MainContent = () => {
         <div className='main-content'>
             <HeroSection />
             <TotalCards />
+            <div className='divider'></div>
             <DataSection />
         </div>
     );

@@ -20,9 +20,15 @@ import {
     View,
     withAuthenticator,
 } from "@aws-amplify/ui-react";
-import Modal from './components/MainContent/Modal/Modal';
-import NewAccountForm from './components/MainContent/Modal/NewAccountForm';
-import NewTransactionForm from './components/MainContent/Modal/NewTransactionForm';
+// import Modal from './components/MainContent/Modal/Modal';
+// import NewAccountForm from './components/MainContent/Modal/NewAccountForm';
+// import NewTransactionForm from './components/MainContent/Modal/NewTransactionForm';
+import Home from './pages/Home';
+import Accounts from './pages/Accounts';
+import Transactions from './pages/Transactions';
+import CashFlow from './pages/CashFlow';
+import { Route, Routes } from "react-router-dom";
+
 
 const App = ({ signOut }) => {
     // Add Acount Button
@@ -38,24 +44,30 @@ const App = ({ signOut }) => {
     }
 
     return (
-        <div>
-            <div className='buttons-overlay'>
-            {openAddAccountModal && <NewAccountForm closeModal={setOpenAddAccountModal} />}
-            {openAddTransactionModal && <NewTransactionForm closeModal={setOpenAddTransactionModal} />}
-                <div className='add-buttons'>
-                    <button onClick={clickOpenAccountModal} className='add-account'>Add Account</button>
-                    <button onClick={clickOpenTransactionModal} className='add-transaction'>Add Transaction</button>
-                </div>
-            </div>
-            <div className="App">
-                <div className='nav-pane'>
-                    <SideBar signOut={signOut} />
-                </div>
-                <div className='content-pane'>
-                    <MainContent />
-                </div>
-            </div>
-        </div>
+        <Routes>
+            <Route path='/' element={ <Home /> } />
+            <Route path='/accounts' element={ <Accounts /> } />
+            <Route path='/transactions' element={ <Transactions /> } />
+            <Route path='/cash-flow' element={ <CashFlow /> } />
+        </Routes>
+        // <div>
+        //     <div className='buttons-overlay'>
+        //     {openAddAccountModal && <NewAccountForm closeModal={setOpenAddAccountModal} />}
+        //     {openAddTransactionModal && <NewTransactionForm closeModal={setOpenAddTransactionModal} />}
+        //         <div className='add-buttons'>
+        //             <button onClick={clickOpenAccountModal} className='add-account'>Add Account</button>
+        //             <button onClick={clickOpenTransactionModal} className='add-transaction'>Add Transaction</button>
+        //         </div>
+        //     </div>
+        //     <div className="App">
+        //         <div className='nav-pane'>
+        //             <SideBar signOut={signOut} />
+        //         </div>
+        //         <div className='content-pane'>
+        //             <MainContent />
+        //         </div>
+        //     </div>
+        // </div>
 
     );
 }

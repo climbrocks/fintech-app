@@ -1,6 +1,12 @@
 import { HomeFilled, BankFilled, AreaChartOutlined } from '@ant-design/icons'
 import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    Link
+} from 'react-router-dom';
 import './Navigation.scss';
 
 const Navigation = () => {
@@ -10,16 +16,16 @@ const Navigation = () => {
         <div>
             <ul>
                 <li>
-                    <a href=""><HomeFilled className='icon' />Dashboard</a>
+                    <Link to="/"><HomeFilled className='icon' />Dashboard</Link>
                 </li>
                 <li>
-                    <a href=""><BankFilled className='icon' />Accounts</a>
+                    <Link to="/accounts"><BankFilled className='icon' />Accounts</Link>
                 </li>
                 <li>
-                    <a href=""><FontAwesomeIcon className='icon' icon={faMoneyBill1Wave} />Transactions</a>
+                    <Link to="/transactions"><FontAwesomeIcon className='icon' icon={faMoneyBill1Wave} />Transactions</Link>
                 </li>
                 <li>
-                    <a href=""><AreaChartOutlined className='icon' />Cash Flow</a>
+                    <Link to="/cash-flow"><AreaChartOutlined className='icon' />Cash Flow</Link>
                 </li>
             </ul>
         </div>

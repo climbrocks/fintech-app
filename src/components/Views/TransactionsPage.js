@@ -16,7 +16,7 @@ import NewAccountForm from '../MainContent/Modal/NewAccountForm';
 import NewTransactionForm from '../MainContent/Modal/NewTransactionForm';
 import HeroSection from '../MainContent/HeroSection/HeroSection';
 import TotalCards from '../MainContent/TotalCards';
-import TransactionsCard from '../MainContent/DataCard/TransactionsCard'
+import TransactionsPageCard from '../MainContent/DataCard/TransactionsPageCard'
 import './TransactionsPage.scss';
 
 const TransactionsPage = () => {
@@ -25,7 +25,8 @@ const TransactionsPage = () => {
             <HeroSection />
             <TotalCards />
             <div className='divider'></div>
-            <TransactionsCard />
+            <div>{  }</div>
+            <TransactionsPageCard />
         </div>
     );
 }

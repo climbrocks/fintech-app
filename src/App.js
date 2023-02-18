@@ -45,10 +45,10 @@ const App = ({ signOut }) => {
 
     return (
         <Routes>
-            <Route path='/' element={ <Home /> } />
-            <Route path='/accounts' element={ <Accounts /> } />
-            <Route path='/transactions' element={ <Transactions /> } />
-            <Route path='/cash-flow' element={ <CashFlow /> } />
+            <Route path='/' element={ <Home signOut={signOut} /> } />
+            <Route path='/accounts' element={ <Accounts signOut={signOut} /> } />
+            <Route path='/transactions' element={ <Transactions signOut={signOut} /> } />
+            <Route path='/cash-flow' element={ <CashFlow signOut={signOut} /> } />
         </Routes>
         // <div>
         //     <div className='buttons-overlay'>

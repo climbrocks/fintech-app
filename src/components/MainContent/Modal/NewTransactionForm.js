@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { API, Auth } from "aws-amplify";
-import { listTransactions } from "../../../graphql/queries";
+import { listAccounts } from "../../../graphql/queries";
 import {
     createTransaction as createTransactionMutation,
   } from '../../../graphql/mutations';
@@ -9,12 +9,9 @@ import "@aws-amplify/ui-react/styles.css";
 import {
   Button,
   Flex,
-  Heading,
-  Text,
   TextField,
   View,
   SelectField,
-  withAuthenticator,
 } from "@aws-amplify/ui-react";
 
 const NewTransactionForm = ({ closeModal }) => {
@@ -22,32 +19,27 @@ const NewTransactionForm = ({ closeModal }) => {
 
     // Constructors to capture logged in users and transactions
     const [userDetails, setUser] = useState([]);
-    const [transactions, setTransaction] = useState([]);
-    //const [accounts, setAccounts] = useState([]);
+    const [accounts, setAccounts] = useState([]);
 
     // Effect hook to dynamically update user & transactions
     useEffect(() => {
       fetchUser();
-      fetchTransactions();
-      //fetchAccounts();
+      fetchAccounts();
     }, []);
 
     // arrays to capture inidivual user data and 
     // total value from DynamoDB
+    const userAccounts = [];
     const userInfo = [];
-    const userValues = [];
-    //const userAccount = [];
-    //const userAccountTypes = [];
-    //let userAccountID = "";
-    //let userAccontDict = {};
+    const userAccount = [];
 
-    // function to get user specific data
-    function getUserTransaction(item){
-      if (item.cognitoID === userDetails){
-        userInfo.push(item);
-        userValues.push(item.value);
-      }
+    function getUserAccounts(item){
+        if (item.cognitoID === userDetails){
+          userAccounts.push(item.bankName);
+        }
     }
+
+    const individualUserAccount = accounts.map(getUserAccounts);
 
     // Function to fetch user UUID (sub) from AWS Cognito
     async function fetchUser() {
@@ -56,12 +48,10 @@ const NewTransactionForm = ({ closeModal }) => {
       setUser(userInfo);
     }
 
-
-    // Function to fetch transaction data from DynamoDB table via Appsync API call
-    async function fetchTransactions() {
-      const getData = await API.graphql({ query: listTransactions });
-      const tranFromAPI = getData.data.listTransactions.items;
-      setTransaction(tranFromAPI);
+    async function fetchAccounts() {
+        const getAccounts = await API.graphql({ query: listAccounts});
+        const accFromAPI = getAccounts.data.listAccounts.items;
+        setAccounts(accFromAPI);
     }
 
     //updateAccountType();
@@ -91,11 +81,9 @@ const NewTransactionForm = ({ closeModal }) => {
             query: createTransactionMutation,
             variables: { input: data },
         });
-        fetchTransactions();
         event.target.reset();
         window.location.reload();
     }
-
 
     return (
         <div className='modal-background'>
@@ -131,14 +119,17 @@ const NewTransactionForm = ({ closeModal }) => {
                     <option value="debit">Debit</option>
                     <option value="credit">Credit</option>
                 </SelectField>
-                <SelectField
-                    name="bankName"
-                    descriptiveText="Select Bank"
-                    required
-                >
-                    <option value="Wells Fargo">Wells Fargo</option>
-                    <option value="Navy Federal">Navy Federal</option>
-                </SelectField>
+                  <SelectField
+                      name="bankName"
+                      descriptiveText="Select Account"
+                      required
+                  >
+                    {userAccounts.map((account, index) => (
+                       <option key={index} value={account}>
+                        {account}
+                       </option> 
+                    ))}
+                  </SelectField>
                 <Button className='submit' type="submit" >
                     Submit
                 </Button>

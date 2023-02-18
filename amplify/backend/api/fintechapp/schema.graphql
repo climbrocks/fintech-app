@@ -8,12 +8,11 @@ type Transaction @model {
   value: Float!
   description: String!
   bankName: String!
-  accountType: String!
 }
 
 type Accounts @model {
   id: ID!
   cognitoID: String!
   bankName: String!
-  accountType: [String!]
+  accountType: String!
 }

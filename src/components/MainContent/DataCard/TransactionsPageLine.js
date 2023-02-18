@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "@aws-amplify/ui-react/styles.css";
 import { API, Auth } from "aws-amplify";
 import {
+  Button,
   Flex,
   Text,
   View,
@@ -98,10 +99,17 @@ const TransactionsLine = () => {
           >
             <Text className='transactions-title' fontWeight={700}>
               {transaction.bankName}</Text>
+            <Text className='transactions-title' fontWeight={700}>
+              {transaction.description}</Text>
+            <Text className='transactions-title' fontWeight={700}>
+              {transaction.createdAt}</Text>
             <Text className='transactions-type'>{checkDebit(transaction.value)}</Text>
             <Text className='transactions-amount' fontWeight={700}>
               ${transaction.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Text>
+            <Button variation="link" onClick={() => deleteTransaction(transaction)}>
+              Delete
+            </Button>
 
           </Flex>
         ))}

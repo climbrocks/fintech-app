@@ -1,15 +1,8 @@
 import './TransactionsCard.scss';
 import TransactionsLine from './TransactionsPageLine';
-import AccountsLine from './TransactionsLine';
 import "@aws-amplify/ui-react/styles.css";
 import {
-    Button,
-    Flex,
-    Heading,
-    Text,
-    TextField,
     View,
-    withAuthenticator,
 } from "@aws-amplify/ui-react";
 
 const DataCard = () => {

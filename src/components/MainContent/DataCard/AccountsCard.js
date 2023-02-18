@@ -1,5 +1,9 @@
 import './AccountsCard.scss';
 import AccountsLine from './AccountsLine';
+import "@aws-amplify/ui-react/styles.css";
+import {
+    View,
+} from "@aws-amplify/ui-react";
 
 const AccountsCard = () => {
     const accountTypes = [
@@ -15,21 +19,10 @@ const AccountsCard = () => {
                 <h2>ACCOUNTS</h2>
             </div>
             <div className = 'accounts'>
-                <div className = 'account-type'>
-                    <h4>{ accountTypes[0] }</h4>
-                </div>
-                <AccountsLine className = 'account' />
-                <AccountsLine className = 'account' />
-                <div className = 'account-type'>
-                    <h4>{ accountTypes[1] }</h4>
-                </div>
-                <AccountsLine className = 'account' />
-                <AccountsLine className = 'account' />
-                <div className = 'account-type'>
-                    <h4>{ accountTypes[2] }</h4>
-                </div>
-                <AccountsLine className = 'account' />
-                <AccountsLine className = 'account' />
+                <View>
+                    <AccountsLine classname='account-type' />
+                </View>
+
             </div>
         </div>
     );

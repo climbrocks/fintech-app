@@ -71,10 +71,10 @@ const NewAccountForm = ({ closeModal }) => {
    async function createAccount(event){
       event.preventDefault();
       const form = new FormData(event.target);
+      const account = form.get("bankName")+" - "+form.get("lastFour");
       const data = {
-        bankName: form.get("bankName"),
+        bankName: account,
         accountType: form.get("accountType"),
-        //accountType: ["checking","savings","credit card"],
         cognitoID: userDetails,
       };
       await API.graphql({
@@ -98,20 +98,28 @@ const NewAccountForm = ({ closeModal }) => {
             <Flex direction="column" justifyContent="center">
                 <TextField
                     name="bankName"
+                    descriptiveText="Bank Name"
                     placeholder="Navy Federal"
-                    labelHidden
                     variation="quiet"
+                    required
+                />
+                <TextField
+                    name="lastFour"
+                    descriptiveText="Last 4 Account Digits"
+                    placeholder="1234"
+                    variation="quiet"
+                    type="number"
                     required
                 />
                 <SelectField
                     name="accountType"
-                    descriptiveText="Select Bank"
+                    descriptiveText="Select Account Type"
                     required
                 >
                     <option value="checking">Checking</option>
                     <option value="savings">Savings</option>
-                    <option value="savings">Credit Card</option>
-                    <option value="savings">Savings</option>
+                    <option value="credit card">Credit Card</option>
+                    <option value="loan">Loan</option>
                 </SelectField>
                 <Button className='submit' type="submit">
                     Submit

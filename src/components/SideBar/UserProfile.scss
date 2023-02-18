@@ -2,30 +2,54 @@
 
 .user-profile {
     background-color: white;
-    padding: 15px;
     border-radius: variables.$border-radius;
     display: grid;
-    grid-template-columns: auto 2fr;
+    grid-template-columns: 6fr 1fr;
     grid-column-gap: 15px;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     box-shadow: variables.$box-shadow;
 
-    .user-initials {
-        padding: 10px 15px;
-        background-color: variables.$background-alt-color;
-        border-radius: variables.$border-radius;
+    .user-profile-info {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        padding: 15px;
+        grid-column-gap: 15px;
+        justify-content: start;
+        align-items: center;
+        .user-initials {
+            padding: 5px 10px;
+            background-color: variables.$background-alt-color;
+            border-radius: variables.$border-radius;
+            text-transform: uppercase;
 
-    }
-
-    .user-information {
-
-        .user-name {
-            font-weight: 600;
-            line-height: 1.5;
         }
-        .user-member-since {
-            font-size: .8em;
+
+        .user-information {
+
+            .user-name {
+                font-weight: 600;
+                line-height: 1.5;
+
+            }
+        }
+    }
+    .user-sign-out {
+
+        button {
+            background: transparent;
+            border: 0;
+            border-top-right-radius: variables.$border-radius;
+            border-bottom-right-radius: variables.$border-radius;
+            background: variables.$accent-red;
+            color: variables.$background-color;
+            cursor: pointer;
+            transition: .3s all ease-in-out;
+            padding: 22px 10px;
+
+        }
+        button:hover {
+            background-color: variables.$accent-red-hover;
         }
     }
 }

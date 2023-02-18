@@ -25,8 +25,8 @@ const SideBar = (props) => {
             <Navigation />
             {openAddAccountModal && <NewAccountForm closeModal={setOpenAddAccountModal} />}
             {openAddTransactionModal && <NewTransactionForm closeModal={setOpenAddTransactionModal} />}
-            <UserProfile />
-            <button className = 'sign-out' onClick = { props.signOut }>Sign Out</button>
+            <UserProfile signOut={props.signOut} />
+            {/* <button className = 'sign-out' onClick = { props.signOut }>Sign Out</button> */}
         </div>
     );
 }

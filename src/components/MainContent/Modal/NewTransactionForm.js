@@ -74,7 +74,6 @@ const NewTransactionForm = ({ closeModal }) => {
             value: posNeg,
             description: form.get("description"),
             bankName: form.get("bankName"),
-            accountType: "checking",
             cognitoID: userDetails,
         };
         await API.graphql({

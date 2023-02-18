@@ -3,7 +3,7 @@
 
 .transactions-line {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr .5fr 0.5fr .5fr;
     justify-content: space-between;
     padding: 15px 30px;
     align-items: center;
@@ -13,6 +13,14 @@
     
 }
 
+.transactions-details {
+
+}
+
+.transactions-timestamp {
+
+}
+
 .transactions-type {
      font-weight: 500;
 }
@@ -20,6 +28,10 @@
 .transactions-amount {
        text-align: right;
     }
+
+.transaction-delete {
+
+}
 
 .transactions-line:nth-of-type(odd) {
     background-color: variables.$background-alt-color;

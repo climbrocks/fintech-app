@@ -9,7 +9,6 @@ export const getTransaction = /* GraphQL */ `
       value
       description
       bankName
-      accountType
       createdAt
       updatedAt
     }
@@ -28,7 +27,6 @@ export const listTransactions = /* GraphQL */ `
         value
         description
         bankName
-        accountType
         createdAt
         updatedAt
       }

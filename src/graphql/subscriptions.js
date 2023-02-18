@@ -11,7 +11,6 @@ export const onCreateTransaction = /* GraphQL */ `
       value
       description
       bankName
-      accountType
       createdAt
       updatedAt
     }
@@ -27,7 +26,6 @@ export const onUpdateTransaction = /* GraphQL */ `
       value
       description
       bankName
-      accountType
       createdAt
       updatedAt
     }
@@ -43,7 +41,6 @@ export const onDeleteTransaction = /* GraphQL */ `
       value
       description
       bankName
-      accountType
       createdAt
       updatedAt
     }

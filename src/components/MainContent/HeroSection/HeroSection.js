@@ -4,7 +4,7 @@ import './HeroSection.scss';
 import Modal from '../Modal/Modal';
 
 
-const HeroSection = () => {
+const HeroSection = (props) => {
 
     // Constructors to capture logged in users and transactions
     const [userDetails, setUser] = useState([]);
@@ -37,7 +37,7 @@ const HeroSection = () => {
 
     return (
         <div className='hero-section'>
-            <h1 className='page-title'>{userDetails.username}'s Dashboard</h1>
+            <h1 className='page-title'>{userDetails.username}'s { props.pageTitle }</h1>
             <div className='hero-buttons'>
                 {/* <button onClick={clickOpenAccountModal} className='add-account'>Add Account</button>
                 {openAddAccountModal && <Modal closeModal={setOpenAddAccountModal} />}

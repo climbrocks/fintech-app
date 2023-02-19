@@ -17,15 +17,20 @@ import NewTransactionForm from '../MainContent/Modal/NewTransactionForm';
 import HeroSection from '../MainContent/HeroSection/HeroSection';
 import TotalCards from '../MainContent/TotalCards';
 import AccountsCard from '../MainContent/DataCard/AccountsCard';
+import CashFlowChart from '../CashFlowChart/CashFlowChart';
 import './CashFlowPage.scss';
 
 const CashFlowPage = () => {
+    const pageTitle = 'Cash Flow';
+
     return (
         <div className="cash-flow-page">
-            <HeroSection />
+            <HeroSection pageTitle={pageTitle} />
             <TotalCards />
             <div className='divider'></div>
-            <h2>Cash Flow Page</h2>
+            <div className='cash-flow-chart'>
+                <CashFlowChart />
+            </div>
         </div>
     );
 }

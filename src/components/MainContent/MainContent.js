@@ -4,9 +4,11 @@ import DataSection from './DataSection/DataSection';
 import './MainContent.scss';
 
 const MainContent = () => {
+    const pageTitle = 'Dashboard';
+
     return (
         <div className='main-content'>
-            <HeroSection />
+            <HeroSection pageTitle={pageTitle} />
             <TotalCards />
             <div className='divider'></div>
             <DataSection />

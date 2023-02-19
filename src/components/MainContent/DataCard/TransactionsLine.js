@@ -98,7 +98,7 @@ const TransactionsLine = () => {
           >
             <Text className='transactions-title' fontWeight={700}>
               {transaction.bankName}</Text>
-            <Text className='transactions-type'>{checkDebit(transaction.value)}</Text>
+            <Text className='transactions-type' fontWeight={700}>{checkDebit(transaction.value)}</Text>
             <Text className='transactions-amount' fontWeight={700}>
               ${transaction.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Text>

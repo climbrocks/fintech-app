@@ -3,18 +3,56 @@
 
 .accounts-line {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
     padding: 15px 30px;
     align-items: center;
-    
-    .accounts-title {
-        
-    }
+
+    .accounts-title {}
+
     .accounts-type {
         font-weight: 500;
     }
+
     .accounts-amount {
         text-align: right;
+    }
+}
+
+.line {
+    width: 100%;
+
+    div {
+
+        div {
+            display: grid;
+            grid-template-columns: 6fr 3fr 1fr;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 15px 30px;
+
+            strong:nth-of-type(2) {
+                font-size: .7em;
+                font-weight: 700;
+                text-transform: uppercase;
+                color: variables.$background-color;
+                background-color: variables.$accent-green;
+                width:fit-content;
+                padding: 3px 6px;
+                border-radius: 16px;
+                margin: 0 auto;
+            }
+
+            button {
+                color: variables.$accent-red;
+                padding: 0;
+                margin: 0;
+                transition: .3s all ease-in-out;
+            }
+            button:hover {
+                color: variables.$accent-red-hover;
+            }
+        }
     }
 }

@@ -1,6 +1,19 @@
 @use '../../../global-css/mixins';
 @use '../../../global-css/variables';
 
+.transactions-dashboard {
+    div {
+        div {
+            div {
+                display: grid;
+                grid-template-columns: 4fr 1fr 1fr;
+                justify-content: space-between;
+
+            }
+        }
+    }
+}
+
 .transactions-line {
     display: grid;
     grid-template-columns: 3fr 1fr 1fr;
@@ -14,7 +27,15 @@
 }
 
 .transactions-type {
-     font-weight: 500;
+    font-size: .7em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: variables.$background-color;
+    background-color: variables.$accent-green;
+    width:fit-content;
+    padding: 3px 6px;
+    border-radius: 16px;
+    margin: 0 auto;
 }
 
 .transactions-amount {

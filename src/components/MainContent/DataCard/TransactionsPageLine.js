@@ -95,15 +95,16 @@ const TransactionsLine = () => {
             key={transaction.id || transaction.value}
             direction="row"
             justifyContent={"space-between"}
-            className="transactions-line"
+            className="transactions-line transactions-line-view"
           >
-            <Text className='transactions-title' fontWeight={700}>
-              {transaction.bankName}</Text>
+            <Text className='transactions-type'>{checkDebit(transaction.value)}</Text>
+
             <Text className='transactions-title' fontWeight={700}>
               {transaction.description}</Text>
             <Text className='transactions-title' fontWeight={700}>
-              {transaction.createdAt}</Text>
-            <Text className='transactions-type'>{checkDebit(transaction.value)}</Text>
+              {transaction.bankName}</Text>
+            <Text className='transactions-title' fontWeight={700}>
+              {transaction.createdAt.substring(0, 10)}</Text>
             <Text className='transactions-amount' fontWeight={700}>
               ${transaction.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
             </Text>

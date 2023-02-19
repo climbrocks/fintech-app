@@ -8,36 +8,67 @@ import {
     Text,
     View,
 } from "@aws-amplify/ui-react";
-import { listAccounts } from "../../../graphql/queries";
+import { listAccounts, listTransactions } from "../../../graphql/queries";
 import {
     deleteAccounts as deleteAccountMutation,
+    deleteTransaction as deleteTransactionMutation,
 } from "../../../graphql/mutations";
 
 const AccountsLine = () => {
 
     const [userDetails, setUser] = useState([]);
     const [accounts, setAccounts] = useState([]);
+    const [transactions, setTransaction] = useState([]);
 
     // Effect hook to dynamically update user & transactions
     useEffect(() => {
         fetchUser();
         fetchAccounts();
+        fetchTransactions();
     }, []);
 
     // arrays to capture inidivual user data and 
     // total value from DynamoDB
     const userAccount = [];
     const userAccountTypes = [];
-    let userAccountID = "";
-    let userAccontDict = {};
+    const userInfo = [];
 
     function getUserAccounts(item) {
         if (item.cognitoID === userDetails) {
             userAccount.push(item);
             userAccountTypes.push(item.accountType);
-            userAccontDict[item.institution] = item.accountType;
-            //userAccountID = item.id;
         }
+    }
+
+    // function to get user specific data
+    function getUserTransaction(item) {
+      if (item.cognitoID === userDetails) {
+        userInfo.push(item);
+        return item;
+      }
+    }
+    
+
+    // variables to pull the user data
+    const individualDetails = transactions.map(getUserTransaction);
+
+    // Function to fetch transaction data from DynamoDB table via Appsync API call
+    async function fetchTransactions() {
+        const getData = await API.graphql({ query: listTransactions });
+        const tranFromAPI = getData.data.listTransactions.items;
+        setTransaction(tranFromAPI);
+    }
+
+
+    // Function to delet a transaction will delete from DynamoDB table and refresh 
+    async function deleteTransaction({ id, value }) {
+        const newTransaction = transactions.filter((transaction) => transaction.id !== id);
+        setTransaction(newTransaction);
+        //await Storage.remove(name);
+        await API.graphql({
+          query: deleteTransactionMutation,
+          variables: { input: { id } },
+        });
     }
 
     const individualUserAccount = accounts.map(getUserAccounts);
@@ -57,12 +88,20 @@ const AccountsLine = () => {
     }
 
     async function deleteAccount({ id, value }) {
+        let toDelete = userAccount.filter((account) => account.id == id);
+        let name = toDelete[0].bankName;
+        let iterTransactions = userInfo.filter((transaction) => transaction.bankName == name);
+        let nowDelete = iterTransactions.map((deleteIt) => (
+            deleteTransaction(deleteIt)
+            //console.log(transaction)
+        ));
         const newAccount = accounts.filter((account) => account.id !== id);
         setAccounts(newAccount);
         await API.graphql({
             query: deleteAccountMutation,
             variables: { input: { id } },
         });
+        window.location.reload();
     }
 
     function getCategories(type) {

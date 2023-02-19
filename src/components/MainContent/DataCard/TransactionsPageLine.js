@@ -20,7 +20,6 @@ const TransactionsLine = () => {
   const [userDetails, setUser] = useState([]);
   const [transactions, setTransaction] = useState([]);
 
-
   // Effect hook to dynamically update user & transactions
   useEffect(() => {
     fetchUser();

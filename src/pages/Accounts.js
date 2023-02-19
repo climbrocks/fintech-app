@@ -2,8 +2,6 @@ import { useState } from "react";
 import NewAccountForm from "../components/MainContent/Modal/NewAccountForm";
 import NewTransactionForm from "../components/MainContent/Modal/NewTransactionForm";
 import SideBar from "../components/SideBar/SideBar";
-import App from "../App";
-import MainContent from "../components/MainContent/MainContent";
 import AccountsPage from "../components/Views/AccountsPage";
 
 

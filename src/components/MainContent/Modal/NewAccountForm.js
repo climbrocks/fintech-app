@@ -8,12 +8,9 @@ import "@aws-amplify/ui-react/styles.css";
 import {
   Button,
   Flex,
-  Heading,
-  Text,
   TextField,
   View,
   SelectField,
-  withAuthenticator,
 } from "@aws-amplify/ui-react";
 import './NewAccountForm.scss';
 

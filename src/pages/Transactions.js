@@ -1,26 +1,9 @@
 import '../App.scss';
 import SideBar from '../components/SideBar/SideBar';
-import MainContent from '../components/MainContent/MainContent';
 import "@aws-amplify/ui-react/styles.css";
 import { useState } from 'react';
-import { API, Auth } from "aws-amplify";
-import {
-    Button,
-    Flex,
-    Heading,
-    Text,
-    TextField,
-    View,
-    withAuthenticator,
-} from "@aws-amplify/ui-react";
 import NewAccountForm from '../components/MainContent/Modal/NewAccountForm';
 import NewTransactionForm from '../components/MainContent/Modal/NewTransactionForm';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link
-} from 'react-router-dom';
 import TransactionsPage from '../components/Views/TransactionsPage';
 
 const Transactions = ( {signOut} ) => {

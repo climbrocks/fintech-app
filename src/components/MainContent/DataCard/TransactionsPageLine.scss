@@ -7,9 +7,13 @@
     justify-content: space-between;
     padding: 15px 30px;
     align-items: center;
+    grid-gap: 30px;
 
-    .transactions-title {
-        
+    .transactions-title:nth-of-type(1) {
+        text-align: left;
+    }
+    .transactions-title:nth-of-type(4) {
+        text-align: center;
     }
 
     .transactions-type {
@@ -31,7 +35,7 @@
 }
 
 .transactions-title {
-    
+   
 }
 
 .transactions-details {
@@ -39,11 +43,11 @@
 }
 
 .transactions-timestamp {
-
+    text-align: right;
 }
 
 .transactions-type {
-     font-weight: 500;
+     font-weight: 700;
 }
 
 .transactions-amount {

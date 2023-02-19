@@ -13,4 +13,12 @@
         margin-bottom: 30px;
         background-color: rgba(0,0,0,0.1);
     }
+
+    .cash-flow-chart {
+        width: 100%;
+        background: variables.$background-color;
+        padding: 30px;
+        border-radius: variables.$border-radius;
+        box-shadow: variables.$box-shadow;
+    }
 }

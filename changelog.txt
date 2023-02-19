@@ -1,4 +1,7 @@
 ## ChangeLog
 
+# Dalton 19FEB2023
+npm install react-charts@beta --save
+
 # Dalton 16FEB2023
-- npm install --save react-router-dom
+npm install --save react-router-dom

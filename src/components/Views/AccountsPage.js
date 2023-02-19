@@ -20,12 +20,15 @@ import AccountsCard from '../MainContent/DataCard/AccountsCard';
 import './AccountsPage.scss';
 
 const AccountsPage = () => {
+    const pageTitle = 'Accounts';
+
     return (
         <div className="accounts-page">
-            <HeroSection />
-            <TotalCards />
-            <div className='divider'></div>
-            <AccountsCard />
+            <HeroSection pageTitle={pageTitle} />
+            <div className='main-view'>
+                <AccountsCard />
+                <TotalCards />
+            </div>
         </div>
     );
 }

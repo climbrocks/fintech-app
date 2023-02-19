@@ -1,12 +1,7 @@
 import { HomeFilled, BankFilled, AreaChartOutlined } from '@ant-design/icons'
 import { faMoneyBill1Wave } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    Link
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Navigation.scss';
 
 const Navigation = () => {

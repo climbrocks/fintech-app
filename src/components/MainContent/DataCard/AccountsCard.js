@@ -1,17 +1,9 @@
 import './AccountsCard.scss';
 import AccountsLine from './AccountsLine';
 import "@aws-amplify/ui-react/styles.css";
-import {
-    View,
-} from "@aws-amplify/ui-react";
+import { View } from "@aws-amplify/ui-react";
 
 const AccountsCard = () => {
-    const accountTypes = [
-        'Checking & Savings',
-        'Credit Cards',
-        'Loans'
-    ]
-
     return (
         <div className = 'accounts-card'>
             <div className = 'title'>

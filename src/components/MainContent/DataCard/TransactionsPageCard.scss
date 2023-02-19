@@ -1,18 +1,20 @@
 @use '../../../global-css/mixins';
 @use '../../../global-css/variables';
 
-.transactions-card {
+.transactions-page-card {
     height: fit-content;
     width: 100%;
     border-radius: 8px;
     box-shadow: variables.$box-shadow;
     background-color: variables.$background-color;
+    height: fit-content;
 
     .title {
         padding: 30px;
         background-color: variables.$background-color;
         border-radius: 8px 8px 0 0;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
         p {
             font-size: .8em;
             font-weight: 700;
@@ -29,13 +31,49 @@
             line-height: 1;
         }
     }
+
     .accounts {
 
         .account-type {
             padding: 15px 30px;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            border-bottom: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
             background-color: variables.$background-alt-color;
         }
+    }
+}
+
+.transactions-page-card-titles {
+    display: grid;
+    grid-template-columns: 1.4fr 9.7fr 9.6fr 10.3fr 2.6fr;
+    justify-content: space-between;
+    padding: 5px 30px;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: .7em;
+    color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.05);
+}
+
+
+
+.transactions-page-line {
+    .transactions {
+        div {
+            div {
+                div {
+                    display: grid !important;
+                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    button {
+                        color: variables.$accent-red;
+                    }
+                }
+            }
+        }
+
     }
 }

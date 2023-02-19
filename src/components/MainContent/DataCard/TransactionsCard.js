@@ -19,7 +19,7 @@ const DataCard = () => {
                 <p>most recent</p>
                 <h2>TRANSACTIONS</h2>
             </div>
-            <div className='transactions'>
+            <div className='transactions-dashboard'>
                 <View>
                     <TransactionsLine className='transaction' />
                 </View>

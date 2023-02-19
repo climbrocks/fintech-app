@@ -1,12 +1,33 @@
 @use '../../../global-css/mixins';
 @use '../../../global-css/variables';
 
-.transactions-line {
+.transactions-line-view {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr .5fr 0.5fr .5fr;
+    grid-template-columns: 1.2fr 10fr 10fr 10fr 2fr 1fr;
     justify-content: space-between;
     padding: 15px 30px;
     align-items: center;
+
+    .transactions-title {
+        
+    }
+
+    .transactions-type {
+        align-self: start;
+        width: fit-content;
+    }
+
+    button {
+        margin: 0;
+        padding: 0;
+        color: variables.$accent-red;
+        transition: .3s all ease-in-out;
+        background: none;
+    }
+    button:hover {
+        color: variables.$accent-red-hover;
+        background: none;
+    }
 }
 
 .transactions-title {

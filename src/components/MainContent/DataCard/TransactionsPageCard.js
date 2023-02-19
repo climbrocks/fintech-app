@@ -1,5 +1,5 @@
-import './TransactionsCard.scss';
-import TransactionsLine from './TransactionsPageLine';
+import './TransactionsPageCard.scss';
+import TransactionsPageLine from './TransactionsPageLine';
 import "@aws-amplify/ui-react/styles.css";
 import {
     View,
@@ -7,14 +7,22 @@ import {
 
 const DataCard = () => {
     return (
-        <div className='transactions-card'>
+        <div className='transactions-page-card'>
             <div className='title'>
                 <p>most recent</p>
                 <h2>TRANSACTIONS</h2>
             </div>
             <div className='transactions'>
+                <div className='transactions-page-card-titles'>
+                    <p>Type</p>
+                    <p>Description</p>
+                    <p>Account</p>
+                    <p>Date</p>
+                    <p>Amount</p>
+                    <p></p>
+                </div>
                 <View>
-                    <TransactionsLine className='transaction' />
+                    <TransactionsPageLine className='transaction' />
                 </View>
             </div>
         </div>

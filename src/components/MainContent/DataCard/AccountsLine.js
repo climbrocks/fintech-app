@@ -93,7 +93,6 @@ const AccountsLine = () => {
         let iterTransactions = userInfo.filter((transaction) => transaction.bankName == name);
         let nowDelete = iterTransactions.map((deleteIt) => (
             deleteTransaction(deleteIt)
-            //console.log(transaction)
         ));
         const newAccount = accounts.filter((account) => account.id !== id);
         setAccounts(newAccount);
@@ -103,7 +102,7 @@ const AccountsLine = () => {
         });
         window.location.reload();
     }
-
+    
     function getCategories(type) {
         return (
             <View>

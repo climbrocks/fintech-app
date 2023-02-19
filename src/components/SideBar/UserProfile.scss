@@ -1,7 +1,7 @@
 @use '../../global-css/variables';
 
 .user-profile {
-    background-color: white;
+    background-color: #5e5a66;
     border-radius: variables.$border-radius;
     display: grid;
     grid-template-columns: 6fr 1fr;
@@ -42,7 +42,7 @@
             border-top-right-radius: variables.$border-radius;
             border-bottom-right-radius: variables.$border-radius;
             background: variables.$accent-red;
-            color: variables.$background-color;
+            color: white;
             cursor: pointer;
             transition: .3s all ease-in-out;
             padding: 22px 10px;

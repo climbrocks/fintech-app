@@ -13,6 +13,9 @@ import {
     deleteAccounts as deleteAccountMutation,
     deleteTransaction as deleteTransactionMutation,
 } from "../../../graphql/mutations";
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const AccountsLine = () => {
 
@@ -115,14 +118,17 @@ const AccountsLine = () => {
                             justifyContent="center"
                             alignItems="center"
                         >
-                            <Text as="strong" fontWeight={700}>
-                                {account.bankName}
+                            <Text as="strong" fontWeight={500}>
+                                {account.bankName.substring(0, account.bankName.length - 6)}
+                                <Text display={'inline-block'} fontWeight={500} opacity={.4}>
+                                    (...{account.bankName.slice(-4)})
+                                </Text>
                             </Text>
                             <Text as="strong" >
                                 {account.accountType}
                             </Text>
                             <Button variation='link' onClick={() => deleteAccount(account)}>
-                                Delete
+                                <FontAwesomeIcon icon={faTrashAlt} />
                             </Button>
                         </Flex>
                     ))}

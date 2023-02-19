@@ -12,6 +12,8 @@ import {
   deleteTransaction as deleteTransactionMutation,
 } from "../../../graphql/mutations";
 import './TransactionsPageLine.scss';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const TransactionsLine = () => {
@@ -98,18 +100,22 @@ const TransactionsLine = () => {
           >
             <Text className='transactions-type'>{checkDebit(transaction.value)}</Text>
 
-            <Text className='transactions-title' fontWeight={700}>
+            <Text className='transactions-title' fontWeight={500}>
               {transaction.description}</Text>
             <Text className='transactions-title' fontWeight={700}>
-              {transaction.bankName}</Text>
-            <Text className='transactions-title' fontWeight={700}>
-              {transaction.createdAt.substring(0, 10)}</Text>
-            <Text className='transactions-amount' fontWeight={700}>
-              ${transaction.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-            </Text>
-            <Button variation="link" onClick={() => deleteTransaction(transaction)}>
-              Delete
-            </Button>
+              {transaction.bankName.substring(0, transaction.bankName.length - 6)}
+              <Text display={'inline-block'} fontWeight={500} opacity={.4}>
+                (...{transaction.bankName.slice(-4)})
+              </Text>
+              </Text>
+              <Text className='transactions-title' fontWeight={700}>
+                {transaction.createdAt.substring(0, 10)}</Text>
+              <Text className='transactions-amount' fontWeight={700}>
+                ${transaction.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+              </Text>
+              <Button variation="link" onClick={() => deleteTransaction(transaction)}>
+                <FontAwesomeIcon icon={faTrashAlt} />
+              </Button>
 
           </Flex>
         ))}

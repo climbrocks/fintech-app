@@ -8,7 +8,8 @@
     padding: 15px 30px;
     align-items: center;
 
-    .accounts-title {}
+    .accounts-title {
+    }
 
     .accounts-type {
         font-weight: 500;
@@ -31,12 +32,13 @@
             align-items: center;
             width: 100%;
             padding: 15px 30px;
+            color: white;
 
             strong:nth-of-type(2) {
                 font-size: .7em;
                 font-weight: 700;
                 text-transform: uppercase;
-                color: variables.$background-color;
+                color: variables.$background-color-alt-line;
                 background-color: variables.$accent-green;
                 width:fit-content;
                 padding: 3px 6px;
@@ -52,6 +54,7 @@
             }
             button:hover {
                 color: variables.$accent-red-hover;
+                background: none;
             }
         }
     }

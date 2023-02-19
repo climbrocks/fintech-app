@@ -96,8 +96,12 @@ const TransactionsLine = () => {
             justifyContent={"space-between"}
             className="transactions-line"
           >
-            <Text className='transactions-title' fontWeight={700}>
-              {transaction.bankName}</Text>
+            <Text className='transactions-title' fontWeight={500}>
+              {transaction.bankName.substring(0, transaction.bankName.length - 6)}
+              <Text display={'inline-block'} fontWeight={500} opacity={.4}>
+                (...{transaction.bankName.slice(-4)})
+              </Text>
+            </Text>
             <Text className='transactions-type' fontWeight={700}>{checkDebit(transaction.value)}</Text>
             <Text className='transactions-amount' fontWeight={700}>
               ${transaction.value.toLocaleString(undefined, { maximumFractionDigits: 2 })}

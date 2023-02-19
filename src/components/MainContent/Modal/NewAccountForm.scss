@@ -2,7 +2,7 @@
 @use '../../../global-css/mixins';
 
 .modal-background {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -41,6 +41,7 @@
                 padding: 0;
                 margin: 0;
                 transition: .2s all ease-in-out;
+                color: variables.$accent-red;
                 cursor: pointer;
             }
             button:hover {

@@ -116,7 +116,10 @@ const AccountsLine = () => {
                             alignItems="center"
                         >
                             <Text as="strong" fontWeight={700}>
-                                {account.bankName}
+                                {account.bankName.substring(0, account.bankName.length - 6)}
+                                <Text display={'inline-block'} fontWeight={500} opacity={.4}>
+                                    (...{account.bankName.slice(-4)})
+                                </Text>
                             </Text>
                             <Text as="strong" >
                                 {account.accountType}

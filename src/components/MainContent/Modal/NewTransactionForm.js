@@ -16,10 +16,10 @@ import {
 
 const NewTransactionForm = ({ closeModal }) => {
 
-
     // Constructors to capture logged in users and transactions
     const [userDetails, setUser] = useState([]);
     const [accounts, setAccounts] = useState([]);
+    const [hasError, setHasError] = useState(true);
 
     // Effect hook to dynamically update user & transactions
     useEffect(() => {
@@ -52,6 +52,11 @@ const NewTransactionForm = ({ closeModal }) => {
         const getAccounts = await API.graphql({ query: listAccounts});
         const accFromAPI = getAccounts.data.listAccounts.items;
         setAccounts(accFromAPI);
+    }
+
+    const validateNum = (e) => {
+        const floatNum = /^\s*-?(\d+(\.\d{1,2})?|\.\d{1,2})\s*$/.test(e.currentTarget.value);
+        setHasError(!floatNum);
     }
 
     //updateAccountType();
@@ -109,6 +114,9 @@ const NewTransactionForm = ({ closeModal }) => {
                     labelHidden
                     variation="quiet"
                     required
+                    hasError={hasError}
+                    onChange={validateNum}
+                    errorMessage="Whole number or up to 2 decimals"
                 />
                  <SelectField
                     name="debcred"

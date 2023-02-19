@@ -22,6 +22,7 @@ const NewAccountForm = ({ closeModal }) => {
     // Constructors to capture logged in users and transactions
     const [userDetails, setUser] = useState([]);
     const [accounts, setAccounts] = useState([]);
+    const [hasError, setHasError] = useState(true);
   
     // Effect hook to dynamically update user & transactions
     useEffect(() => {
@@ -48,12 +49,6 @@ const NewAccountForm = ({ closeModal }) => {
       }
     }
   
-    function getAccountID(account) {
-      if (account.institution === "Chase"){
-        userAccountID = account.id;
-      }    
-    }
-  
    // Function to fetch user UUID (sub) from AWS Cognito
     async function fetchUser() {
       const user = await Auth.currentAuthenticatedUser();
@@ -68,23 +63,29 @@ const NewAccountForm = ({ closeModal }) => {
       setAccounts(accFromAPI);
     }
   
-   async function createAccount(event){
-      event.preventDefault();
-      const form = new FormData(event.target);
-      const account = form.get("bankName")+" - "+form.get("lastFour");
-      const data = {
-        bankName: account,
-        accountType: form.get("accountType"),
-        cognitoID: userDetails,
-      };
-      await API.graphql({
-        query: createAccountMutation,
-        variables: { input: data },
-      });
-      fetchAccounts();
-      event.target.reset();
-      window.location.reload();
-    }   
+    const validateNum = (e) => {
+      const fourDigits = /^\d{4}$/.test(e.currentTarget.value);
+      setHasError(!fourDigits);
+    }
+
+
+    async function createAccount(event){
+       event.preventDefault();
+       const form = new FormData(event.target);
+       const account = form.get("bankName")+" - "+form.get("lastFour");
+       const data = {
+         bankName: account,
+         accountType: form.get("accountType"),
+         cognitoID: userDetails,
+       };
+       await API.graphql({
+         query: createAccountMutation,
+         variables: { input: data },
+       });
+       fetchAccounts();
+       event.target.reset();
+       window.location.reload();
+     }   
  
 
     return (
@@ -110,6 +111,9 @@ const NewAccountForm = ({ closeModal }) => {
                     variation="quiet"
                     type="number"
                     required
+                    hasError={hasError}
+                    onChange={validateNum}
+                    errorMessage="Please enter 4 digits"
                 />
                 <SelectField
                     name="accountType"

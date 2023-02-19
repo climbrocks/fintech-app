@@ -124,7 +124,7 @@ const AccountsLine = () => {
                                     (...{account.bankName.slice(-4)})
                                 </Text>
                             </Text>
-                            <Text as="strong" >
+                            <Text as="strong">
                                 {account.accountType}
                             </Text>
                             <Button variation='link' onClick={() => deleteAccount(account)}>

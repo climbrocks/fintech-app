@@ -96,7 +96,7 @@ const TransactionsLine = () => {
             justifyContent={"space-between"}
             className="transactions-line"
           >
-            <Text className='transactions-title' fontWeight={700}>
+            <Text className='transactions-title' fontWeight={500}>
               {transaction.bankName.substring(0, transaction.bankName.length - 6)}
               <Text display={'inline-block'} fontWeight={500} opacity={.4}>
                 (...{transaction.bankName.slice(-4)})

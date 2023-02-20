@@ -2,7 +2,7 @@ import '../../App.scss';
 import "@aws-amplify/ui-react/styles.css";
 import HeroSection from '../MainContent/HeroSection/HeroSection';
 import TotalCards from '../MainContent/TotalCards';
-import CashFlowChart from '../CashFlowChart/CashFlowChart';
+import CashFlowChart from '../CashFlowChart/CashFlowChart.tsx';
 import './CashFlowPage.scss';
 
 const CashFlowPage = () => {

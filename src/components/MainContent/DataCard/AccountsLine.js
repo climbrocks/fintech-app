@@ -19,6 +19,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AccountsLine = () => {
 
+    // arrays to capture Cognito IDs/accounts/transactions
     const [userDetails, setUser] = useState([]);
     const [accounts, setAccounts] = useState([]);
     const [transactions, setTransaction] = useState([]);
@@ -36,6 +37,7 @@ const AccountsLine = () => {
     const userAccountTypes = [];
     const userInfo = [];
 
+    // get user ID
     function getUserAccounts(item) {
         if (item.cognitoID === userDetails) {
             userAccount.push(item);
@@ -54,6 +56,7 @@ const AccountsLine = () => {
 
     // variables to pull the user data
     const individualDetails = transactions.map(getUserTransaction);
+
 
     // Function to fetch transaction data from DynamoDB table via Appsync API call
     async function fetchTransactions() {
@@ -84,12 +87,14 @@ const AccountsLine = () => {
         return userInfo;
     }
 
+    // Get accounts
     async function fetchAccounts() {
         const getAccounts = await API.graphql({ query: listAccounts });
         const accFromAPI = getAccounts.data.listAccounts.items;
         setAccounts(accFromAPI);
     }
 
+    // Deletes account and all corresponding transactions
     async function deleteAccount({ id, value }) {
         let toDelete = userAccount.filter((account) => account.id == id);
         let name = toDelete[0].bankName;
@@ -106,7 +111,20 @@ const AccountsLine = () => {
         window.location.reload();
     }
     
+    // Sum up totals for each account
+    function getTotals(name){
+        let accountTotal = 0;
+        userInfo.forEach((item) => {
+            if (item.bankName == name){
+                accountTotal += item.value;
+            }
+        })
+        return accountTotal;
+    }
+    
+    // Group accounts by category
     function getCategories(type) {
+
         return (
             <View>
                 {userAccount
@@ -126,6 +144,9 @@ const AccountsLine = () => {
                             </Text>
                             <Text as="strong">
                                 {account.accountType}
+                            </Text>
+                            <Text fontWeight={500}>
+                                ${getTotals(account.bankName)}
                             </Text>
                             <Button variation='link' onClick={() => deleteAccount(account)}>
                                 <FontAwesomeIcon icon={faTrashAlt} />

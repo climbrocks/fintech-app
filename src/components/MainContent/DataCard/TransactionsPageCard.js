@@ -5,6 +5,7 @@ import {
     View,
 } from "@aws-amplify/ui-react";
 
+//displays transactions
 const DataCard = () => {
     return (
         <div className='transactions-page-card'>

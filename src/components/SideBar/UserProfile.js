@@ -22,15 +22,6 @@ const UserProfile = (props) => {
 
 
     return (
-        // <div className='user-profile'>
-        //     <div className='user-initials'>
-        //         <h3><FontAwesomeIcon className='icon' icon={faUserAlt} /></h3>
-        //     </div>
-        //     <div className='user-information'>
-        //             <p className='user-name'>@{userDetails.username}</p>
-        //             {/* <p className='user-member-since'>Member since 2023</p> */}
-        //         </div>
-        // </div>
         <div className="user-profile">
             <div className="user-profile-info">
                 <div className='user-initials'>

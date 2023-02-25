@@ -17,11 +17,13 @@ const TotalsCards = (props) => {
       }, []);
 
 
+    // constants to store account and user specific info
     const userAccount = [];
     const userAccountTypes = [];
     const userInfo = [];
     const userValues = [];
 
+    // function to get individual user accounts
     function getUserAccounts(item) {
         if (item.cognitoID === userDetails.sub) {
             userAccount.push(item);
@@ -52,24 +54,27 @@ const TotalsCards = (props) => {
         }
       }
     
-      // Function to fetch user UUID (sub) from AWS Cognito
+    // Function to fetch user UUID (sub) from AWS Cognito
     async function fetchUser() {
         const user = await Auth.currentAuthenticatedUser();
         const userInfo = {"sub":user.attributes.sub, "username":user.username, "userInitial":user.username.slice(0, 1)};
         setUser(userInfo);
     }
 
+    // function to get accounts
     async function fetchAccounts() {
         const getAccounts = await API.graphql({ query: listAccounts });
         const accFromAPI = getAccounts.data.listAccounts.items;
         setAccounts(accFromAPI);
     }
 
+    // variables and constants to tally totals and store account names
     let loanTotal = 0;
     let creditTotal = 0;
     const loanAccounts = [];
     const creditAccounts = [];
 
+    // function to get loan and credit card accounts
     function getCredLoanAccounts(account) {
         if (account.accountType == "credit card") {
             creditAccounts.push(account.bankName);
@@ -80,6 +85,7 @@ const TotalsCards = (props) => {
         }
     }
 
+    // function to tally loan totals
     function getLoanTally(name){
         userInfo.forEach((item) => {
             if (item.bankName == name){
@@ -88,6 +94,7 @@ const TotalsCards = (props) => {
         })
     }
 
+    // function to tally credit total
     function getCreditTally(name){
         userInfo.forEach((item) => {
             if (item.bankName == name) {
@@ -95,7 +102,8 @@ const TotalsCards = (props) => {
             }
         })
     }
-    
+
+    // constants to call functions
     const getSpecialAccounts = userAccount.map(getCredLoanAccounts);
     const tallyLoans = loanAccounts.map(getLoanTally);
     const tallyCredit = creditAccounts.map(getCreditTally);
@@ -108,6 +116,7 @@ const TotalsCards = (props) => {
         setTransaction(tranFromAPI);
     }
    
+    //function to handle each total type and pass to display
     function handler(entry){
         if (entry == 'NET WORTH'){
             return userTotal.toLocaleString(undefined, {maximumFractionDigits:2})

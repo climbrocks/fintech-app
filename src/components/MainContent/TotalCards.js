@@ -1,6 +1,8 @@
 import TotalsCards from "./TotalsCards/TotalsCards";
 import './TotalCards.scss'
 
+
+// all totals for dashboard
 const TotalCards = () => {
     const cards = [
         {

@@ -18,7 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const TransactionsLine = () => {
 
-  // Constructors to capture logged in users and transactions
+  // Constants to capture logged in users and transactions
   const [userDetails, setUser] = useState([]);
   const [transactions, setTransaction] = useState([]);
 
@@ -75,6 +75,7 @@ const TransactionsLine = () => {
       query: deleteTransactionMutation,
       variables: { input: { id } },
     });
+    window.location.reload();
   }
 
   //check to see if it was a Credit or Debit to return

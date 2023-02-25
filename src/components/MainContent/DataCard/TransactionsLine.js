@@ -7,15 +7,12 @@ import {
   View,
 } from "@aws-amplify/ui-react";
 import { listTransactions } from "../../../graphql/queries";
-import {
-  deleteTransaction as deleteTransactionMutation,
-} from "../../../graphql/mutations";
 import './TransactionsLine.scss';
 
 
 const TransactionsLine = () => {
 
-  // Constructors to capture logged in users and transactions
+  // Constants to capture logged in users and transactions
   const [userDetails, setUser] = useState([]);
   const [transactions, setTransaction] = useState([]);
 
@@ -30,8 +27,6 @@ const TransactionsLine = () => {
   // total value from DynamoDB
   const userInfo = [];
   const userValues = [];
-  const userAccount = [];
-  const userAccountTypes = [];
 
   // function to get user specific data
   function getUserTransaction(item) {
@@ -63,17 +58,6 @@ const TransactionsLine = () => {
     setTransaction(tranFromAPI);
   }
 
-
-  // Function to delet a transaction will delete from DynamoDB table and refresh 
-  async function deleteTransaction({ id, value }) {
-    const newTransaction = transactions.filter((transaction) => transaction.id !== id);
-    setTransaction(newTransaction);
-    //await Storage.remove(name);
-    await API.graphql({
-      query: deleteTransactionMutation,
-      variables: { input: { id } },
-    });
-  }
 
   //check to see if it was a Credit or Debit to return
   function checkDebit(item) {

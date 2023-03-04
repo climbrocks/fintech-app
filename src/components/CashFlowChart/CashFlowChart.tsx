@@ -1,8 +1,3 @@
-/*
-** This Typescript file embeds ChartJS and react-chartjs-2 functionality
-** It displays a bar chart on the Cash Flow page
-*/
-
 import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
@@ -19,7 +14,6 @@ import { listAccounts, listTransactions } from "../../graphql/queries";
 
 const CashFlowChart = () => {
 
-  // Boiler plate ChartJS
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -29,7 +23,6 @@ const CashFlowChart = () => {
     Legend
   );
 
-  // constant for chart setup
   const options = {
     plugins: {
       title: {
@@ -115,11 +108,9 @@ const CashFlowChart = () => {
       setAccounts(accFromAPI);
   }
   
-  // constants to store object arrays
   const loanAccounts = [];
   const otherAccounts = [];
 
-  // function to parse account types
   function getCredLoanAccounts(account) {
     if (account.accountType == "loan") {
         loanAccounts.push(account.bankName);
@@ -129,10 +120,8 @@ const CashFlowChart = () => {
     }
   }
 
-  // purpose is only to call the function and populate the array
   const getSpecialAccounts = userAccount.map(getCredLoanAccounts);
 
-  // dictionary object to store values to populate the chart
   const monthlySpent = {
     "January":[{"spent":0},{"income":0},{"loan":0}],
     "February":[{"spent":0},{"income":0},{"loan":0}],
@@ -142,11 +131,9 @@ const CashFlowChart = () => {
     "June":[{"spent":0},{"income":0},{"loan":0}],
   };
 
-  // arrays to separate out the loans and other transactions
   const loanTransactions = [];
   const otherTransactions = [];
 
-  // function to populate the arrasy
   function separateLoans(name){
     userInfo.forEach((item) => {
       if (item.bankName === name){
@@ -155,7 +142,6 @@ const CashFlowChart = () => {
     });
   }
  
-  // function to separate out other transactions (not loans)
   function separateOthers(name){
     userInfo.forEach((item) => {
       if (item.bankName === name){
@@ -164,12 +150,9 @@ const CashFlowChart = () => {
     });
   }
   
-  // constants to call the functions
   const separateOther = otherAccounts.map(separateOthers);
   const separateLoan = loanAccounts.map(separateLoans);
   
-
-  // function to get montly income and expenditure totals 
   function getMonthlyData(){
     
     let valueSpent = 0;
@@ -239,8 +222,6 @@ const CashFlowChart = () => {
     })
     
   }
-
-  // function to get monthly loan totals
   function getLoanData(){
     let valueLoan = 0;
     loanTransactions.forEach((tran) => {
@@ -272,10 +253,6 @@ const CashFlowChart = () => {
     })
     
   }
-
-  // function takes chart monthly name,
-  // calls the function to populate dictionary
-  // returns corresponding monthly value
   function getSpent(month){
     getMonthlyData();
     let ammount = monthlySpent[month]["spent"];
@@ -285,16 +262,11 @@ const CashFlowChart = () => {
     return ammount;
   }
 
-  // function takes chart monthly name ,
-  // returns corresponding monthly value for income category
   function getIncome(month){
     let ammount = monthlySpent[month]["income"];
     return ammount;
   }
 
-  // function takes chart monthly name,
-  // calls function to populate dictionary for loan data
-  // returns corresponding monthly value for loan category
   function getLoan(month){
     getLoanData();
     let ammount = monthlySpent[month]["loan"];
@@ -302,10 +274,8 @@ const CashFlowChart = () => {
     return ammount;
   }
   
-  // constant for chart monthly names
   const labels = ["January", "February", "March", "April", "May", "June"];
 
-  // object array that gets piped to chart
   const data = {
     labels,
     datasets: [
@@ -330,7 +300,6 @@ const CashFlowChart = () => {
     ],
 
   };
-  // returns a bar chart
   return <Bar options={options} data={data} />;
 
 };

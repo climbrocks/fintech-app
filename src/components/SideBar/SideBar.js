@@ -2,7 +2,6 @@ import './SideBar.scss';
 import Navigation from './Navigation';
 import UserProfile from './UserProfile';
 
-//sidebar with navigation
 const SideBar = (props) => {
     return(
         <div className='side-bar'>

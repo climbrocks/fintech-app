@@ -3,8 +3,6 @@ import TotalCards from './TotalCards';
 import DataSection from './DataSection/DataSection';
 import './MainContent.scss';
 
-
-// main display
 const MainContent = () => {
     const pageTitle = 'Dashboard';
 

@@ -30,6 +30,8 @@ const NewTransactionForm = ({ closeModal }) => {
     // arrays to capture inidivual user data and 
     // total value from DynamoDB
     const userAccounts = [];
+    const userInfo = [];
+    const userAccount = [];
 
     function getUserAccounts(item){
         if (item.cognitoID === userDetails){
@@ -37,7 +39,6 @@ const NewTransactionForm = ({ closeModal }) => {
         }
     }
 
-    // constant just to call function
     const individualUserAccount = accounts.map(getUserAccounts);
 
     // Function to fetch user UUID (sub) from AWS Cognito
@@ -58,6 +59,7 @@ const NewTransactionForm = ({ closeModal }) => {
         setHasError(!floatNum);
     }
 
+    //updateAccountType();
     /* Function to add a new transaction 
      writes to DynamoDB table via Appsync 
      pulls data from user input form 

@@ -4,9 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import './Navigation.scss';
 
-//primary navigation
 const Navigation = () => {
-    // includes ICONS
+    // TODO: 
+    //      ANCHOR ICONS
     return (
         <div>
             <ul>

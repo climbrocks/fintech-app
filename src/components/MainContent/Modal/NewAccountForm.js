@@ -29,9 +29,22 @@ const NewAccountForm = ({ closeModal }) => {
   
     // arrays to capture inidivual user data and 
     // total value from DynamoDB
+    const userInfo = [];
+    const userValues = [];
     const userAccount = [];
     const userAccountTypes = [];
+    let userAccountID = "";
+    let userAccontDict = {};
   
+    
+    function getUserAccounts(item){
+      if (item.cognitoID === userDetails){
+        userAccount.push(item);
+        userAccountTypes.push(item.accountType);
+        userAccontDict[item.institution] = item.accountType;
+        //userAccountID = item.id;
+      }
+    }
   
    // Function to fetch user UUID (sub) from AWS Cognito
     async function fetchUser() {
@@ -40,22 +53,19 @@ const NewAccountForm = ({ closeModal }) => {
       setUser(userInfo);
       return userInfo;
     }
- 
-    // function to get list of accounts
+  
     async function fetchAccounts() {
       const getAccounts = await API.graphql({ query: listAccounts});
       const accFromAPI = getAccounts.data.listAccounts.items;
       setAccounts(accFromAPI);
     }
   
-    // function to validate user input--only four digits allowed
     const validateNum = (e) => {
       const fourDigits = /^\d{4}$/.test(e.currentTarget.value);
       setHasError(!fourDigits);
     }
 
 
-    // function to create account
     async function createAccount(event){
        event.preventDefault();
        const form = new FormData(event.target);
